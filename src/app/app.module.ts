@@ -12,7 +12,29 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    //Tan
+
+
+
+
+
+
+
+
+
+    //Nam
+
+
+
+
+
+
+
+
+
+    //Tung
+
   ],
   providers: [],
   bootstrap: [AppComponent]
