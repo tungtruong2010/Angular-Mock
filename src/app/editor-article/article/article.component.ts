@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EditorArticleService } from 'src/app/service/implement-services/editor-article.service';
 
 @Component({
   selector: 'app-article',
@@ -13,14 +14,15 @@ export class ArticleComponent implements OnInit {
 
   public tagList:any=[];
 
-  constructor() { }
+  constructor(public service: EditorArticleService) { }
 
   ngOnInit(): void {
+    console.log(this.service.an);
   }
   getTag(tagValue:string){
     this.tagList.push(tagValue);
   }
   publishArticle(title:string,maincontent:string,markdown:string){
-    
+
   }
 }
