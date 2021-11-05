@@ -1,0 +1,9 @@
+<div class="container">
+    <form>
+        <input type="text" class="form-control" placeholder="Article Title" [(ngModel)]="title">
+        <input type="text" class="form-control" placeholder="What is the article about?" [(ngModel)]="maincontent">
+        <textarea class="form-control" rows="3" placeholder="Write your article (in markdown)" [(ngModel)]="markdown"></textarea>
+        <input type="text" placeholder="Enter tag" (keypress.onEnter)="getTag(tag)" [(ngModel)]="tag">
+    </form>
+    <button class="btn btn-success" (click)="publishArticle(title,maincontent,markdown)">Publish Article</button>
+</div>
