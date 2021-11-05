@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular-mock';
-  public a = 1;
+  public as:any;
 }
