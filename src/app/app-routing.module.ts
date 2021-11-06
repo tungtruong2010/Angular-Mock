@@ -22,7 +22,7 @@ import { LoginComponent } from './auth/login/login.component';
 
 
 //Tùng
-
+import { ArticleComponent } from './editor-article/article/article.component';
 
 
 
@@ -35,6 +35,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'editor',
+    component: ArticleComponent
   }
 ];
 
