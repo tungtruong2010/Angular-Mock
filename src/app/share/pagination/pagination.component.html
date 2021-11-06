@@ -1,0 +1,14 @@
+<nav aria-label="Page navigation example text-success">
+  <ul class="pagination">
+    <li class="page-item"><button class="page-link" [disabled]= "currentPage === 1" (click)= "handleSelectPage(currentPage - 1)">Previous</button></li>
+    <li
+      class="page-item"
+      [ngClass]="{'active' : currentPage === (idx + 1) }"
+      *ngFor="let page of listPage; let idx = index"
+      (click)="handleSelectPage(idx + 1)"
+    >
+      <a class="page-link">{{idx + 1}}</a>
+    </li>
+    <li class="page-item"><button class="page-link" [disabled]= "currentPage === listPage.length" (click)= "handleSelectPage(currentPage + 1)">Next</button></li>
+  </ul>
+</nav>
