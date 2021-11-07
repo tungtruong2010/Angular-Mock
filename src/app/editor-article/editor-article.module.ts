@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArticleComponent } from './article/article.component';
+import { CreateArticleComponent } from './create-article/create-article.component';
 import { FormsModule } from '@angular/forms';
 import { EditorArticleService } from '../service/implement-services/editor-article.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ManageArticleComponent } from './manage-article/manage-article.component';
 
 
 
 @NgModule({
   declarations: [
-    ArticleComponent
+    CreateArticleComponent,
+    ManageArticleComponent,
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers:[
     EditorArticleService

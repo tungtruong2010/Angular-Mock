@@ -22,8 +22,8 @@ import { LoginComponent } from './auth/login/login.component';
 
 
 //Tùng
-import { ArticleComponent } from './editor-article/article/article.component';
-
+import { CreateArticleComponent } from './editor-article/create-article/create-article.component';
+import { ManageArticleComponent } from './editor-article/manage-article/manage-article.component';
 
 
 
@@ -38,8 +38,24 @@ const routes: Routes = [
   },
   {
     path: 'editor',
-    component: ArticleComponent
-  }
+    component: CreateArticleComponent
+  },
+
+
+
+
+
+
+  {
+    path: 'editor',
+    children:[
+      {
+        path:':slug',
+        component: ManageArticleComponent
+      }
+    ]
+  },
+  
 ];
 
 @NgModule({
