@@ -4,9 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
 
+
+import { FormsModule } from '@angular/forms';
 import { EditorArticleModule } from './editor-article/editor-article.module';
+
+import { AuthModule } from './auth/auth.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -17,7 +22,7 @@ import { EditorArticleModule } from './editor-article/editor-article.module';
     AppRoutingModule,
     NgbModule,
     //Tan
-
+    AuthModule,
 
 
 
@@ -39,7 +44,14 @@ import { EditorArticleModule } from './editor-article/editor-article.module';
     //Tung
     EditorArticleModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
