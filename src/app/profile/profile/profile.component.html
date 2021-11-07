@@ -2,14 +2,14 @@
   <div class="header bg-light">
     <div class="container px-5">
       <div class="profile-info text-center">
-        <img class="avatar-big mb-3" [src]="src" />
-        <h3>User Account </h3>
+        <img class="avatar-big mb-3" [src]= "userAccount?.image" />
+        <h3>{{userAccount?.username}}</h3>
       </div>
       <div class="action-btn d-flex justify-content-end">
         <button *ngIf= "userAccount === 'userAccount'; else followBtn" type="button" class="btn btn-outline-secondary">
           <i class="fas fa-cog"></i>
           Edit Profile
-        </button>
+        </button> 
         <ng-template #followBtn>
           <button type="button" class="btn btn-outline-secondary" (click)="handleToggleFollow()">
             <i class="fas fa-plus"></i>
