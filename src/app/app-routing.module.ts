@@ -37,16 +37,14 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
     path: 'editor',
     component: ArticleComponent
+  },
+  {
+    path: 'api/profile/:userName',
+    loadChildren: () => import('./profile/profile.module').then(
+      m => m.ProfileModule
+    )
   }
 ];
 
