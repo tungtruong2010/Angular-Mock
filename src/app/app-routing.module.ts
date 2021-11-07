@@ -12,7 +12,7 @@ import { LoginComponent } from './auth/login/login.component';
 
 
 //Nam
-
+import { ProfileModule } from './profile/profile.module';
 
 
 
@@ -39,6 +39,12 @@ const routes: Routes = [
   {
     path: 'editor',
     component: ArticleComponent
+  },
+  {
+    path: 'api/profile/:userName',
+    loadChildren: () => import('./profile/profile.module').then(
+      m => m.ProfileModule
+    )
   }
 ];
 
