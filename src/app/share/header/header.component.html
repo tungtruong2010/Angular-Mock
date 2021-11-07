@@ -1,0 +1,39 @@
+<nav class="navbar navbar-light bg-white">
+  <div class="container">
+    <a class="navbar-brand font-weight-bolder text-success " routerLink="">
+      <h3>Conduit</h3>
+    </a>
+    <div class="menu">
+      <ul *ngIf=" !isLoggin;else menuLoggin" class="navbar-nav flex-row text-muted">
+        <li class="nav-item active mr-4" routerLink="" routerLinkActive="active" >
+          <a class="nav-link">Home</a>
+        </li>
+        <li class="nav-item mr-4">
+          <a class="nav-link" routerLink="login" routerLinkActive="active">Sign In</a>
+        </li>
+        <li class="nav-item" routerLink="register" routerLinkActive="active">
+          <a class="nav-link">Sign Up</a>
+        </li>
+      </ul>
+      <ng-template #menuLoggin >
+        <ul class="navbar-nav flex-row text-muted">
+          <li class="nav-item active mr-4 active" routerLink="" routerLinkActive="active">
+            <a class="nav-link">Home</a>
+          </li>
+          <li class="nav-item mr-4 d-flex align-items-center">
+            <i class="far fa-edit mr-1"></i>
+            <a class="nav-link">New Article</a>
+          </li>
+          <li class="nav-item mr-4 d-flex align-items-center">
+            <i class="fas fa-cog mr-1"></i>
+            <a class="nav-link">Setting</a>
+          </li>
+          <li class="nav-item mr-4 d-flex align-items-center" [routerLink] ="['api/profile', account_name]" routerLinkActive="active">
+            <img class="avatar mr-1" [src]="src" />
+            <a class="nav-link" >{{account_name}}</a>
+          </li>
+        </ul>
+      </ng-template>
+    </div>
+  </div>
+</nav>

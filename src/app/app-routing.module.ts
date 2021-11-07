@@ -12,7 +12,7 @@ import { LoginComponent } from './auth/login/login.component';
 
 
 //Nam
-
+import { ProfileModule } from './profile/profile.module';
 
 
 
@@ -40,12 +40,6 @@ const routes: Routes = [
     path: 'editor',
     component: CreateArticleComponent
   },
-
-
-
-
-
-
   {
     path: 'editor',
     children:[
@@ -55,7 +49,12 @@ const routes: Routes = [
       }
     ]
   },
-  
+  {
+    path: 'api/profile/:userName',
+    loadChildren: () => import('./profile/profile.module').then(
+      m => m.ProfileModule
+    )
+  }
 ];
 
 @NgModule({

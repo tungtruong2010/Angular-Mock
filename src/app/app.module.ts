@@ -5,13 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { ShareModule } from './share/share.module';
+import { FormsModule } from '@angular/forms';
+
 
 import { EditorArticleModule } from './editor-article/editor-article.module';
+import { HeaderComponent } from './share/header/header.component';
+import { FooterComponent } from './share/footer/footer.component';
+
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +37,7 @@ import { EditorArticleModule } from './editor-article/editor-article.module';
 
 
     //Nam
-
+    ShareModule,
 
 
 
@@ -41,6 +50,6 @@ import { EditorArticleModule } from './editor-article/editor-article.module';
     EditorArticleModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
