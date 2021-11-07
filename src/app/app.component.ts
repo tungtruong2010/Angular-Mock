@@ -8,8 +8,4 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Angular-mock';
   public as:any;
-
-  public handleSelectPage(currentPage:number):void{
-    console.log(currentPage)
-  }
 }

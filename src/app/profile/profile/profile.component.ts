@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute} from '@angular/router';
 import { Article } from 'src/app/model/Article';
+import { ProfileService } from 'src/app/service/profile-services/profile.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -7,11 +10,10 @@ import { Article } from 'src/app/model/Article';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  public src:string = 'https://picsum.photos/id/237/200/300';
-  public userAccount:string = 'userAccount';
+  public userAccount:any;
   public isFollow:boolean = false;
   public article?:Article;
-  constructor() {
+  constructor(private route:ActivatedRoute, private profileService:ProfileService) {
     this.article = {
       "slug": "how-to-train-your-dragon",
       "title": "How to train your dragon",
@@ -32,6 +34,14 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      let userInfo = params['userName'];
+      this.profileService.getProfileUser(userInfo).subscribe(
+        res => this.userAccount = res,
+        err => console.log(err)
+      )
+
+    })
   }
 
   public handleToggleFollow():void {
