@@ -6,11 +6,13 @@ import { ReplaySubject } from 'rxjs';
 })
 export class EditorArticleService {
   public editvalue=new ReplaySubject();
-  constructor(public http: HttpClient) { }
+  public token = localStorage.getItem('token');
+  
+  constructor(public http: HttpClient) { this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODJhZjVhYWFlZGZmNDg3MDEzNGRlMCIsInVzZXJuYW1lIjoiamFjb2IiLCJleHAiOjE2NDExMzg1MjIsImlhdCI6MTYzNTk1NDUyMn0.UAA71D8-bZ0nmdwxoyBFiLzIr1OGmXEhKEz9WPGAadI' }
   
   createArticle(title:string,maincontent:string,markdown:string, tagList:any){
     
-    const headers = { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODJhZjVhYWFlZGZmNDg3MDEzNGRlMCIsInVzZXJuYW1lIjoiamFjb2IiLCJleHAiOjE2NDEzMTcyNTIsImlhdCI6MTYzNjEzMzI1Mn0.rw9SxZQwkbfbVT4TuFDM3nyztRphHUlviqnSI4kwUWk', 'My-Custom-Header': 'foobar' };
+    const headers = { 'Authorization': 'Bearer '+this.token, 'My-Custom-Header': 'foobar' };
     const body={
       "article": {
           "title": title,
@@ -22,14 +24,14 @@ export class EditorArticleService {
     return this.http.post('http://localhost:3000/api/articles',body,{headers})
   }
   deleteArticle(slug:string){
-    const headers = { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODJhZjVhYWFlZGZmNDg3MDEzNGRlMCIsInVzZXJuYW1lIjoiamFjb2IiLCJleHAiOjE2NDEzMTcyNTIsImlhdCI6MTYzNjEzMzI1Mn0.rw9SxZQwkbfbVT4TuFDM3nyztRphHUlviqnSI4kwUWk', 'My-Custom-Header': 'foobar' };
+    const headers = { 'Authorization': 'Bearer '+this.token, 'My-Custom-Header': 'foobar' };
     return this.http.delete('http://localhost:3000/api/articles/'+slug,{headers})
   }
   updateArticle(e:any){
     this.editvalue.next(e);
   }
   ChangeUpdateArticle(title:string,maincontent:string,markdown:string, tagList:any,slug:string){
-    const headers = { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODJhZjVhYWFlZGZmNDg3MDEzNGRlMCIsInVzZXJuYW1lIjoiamFjb2IiLCJleHAiOjE2NDEzMTcyNTIsImlhdCI6MTYzNjEzMzI1Mn0.rw9SxZQwkbfbVT4TuFDM3nyztRphHUlviqnSI4kwUWk', 'My-Custom-Header': 'foobar' };
+    const headers = { 'Authorization': 'Bearer '+this.token, 'My-Custom-Header': 'foobar' };
     const body={
       "article": {
           "title": title,
@@ -44,7 +46,7 @@ export class EditorArticleService {
     return this.http.get(`http://localhost:3000/api/articles/${slug}/comments`)
   }
   postCmt(cmt:string,slug:string){
-    const headers = { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODJhZjVhYWFlZGZmNDg3MDEzNGRlMCIsInVzZXJuYW1lIjoiamFjb2IiLCJleHAiOjE2NDEzMTcyNTIsImlhdCI6MTYzNjEzMzI1Mn0.rw9SxZQwkbfbVT4TuFDM3nyztRphHUlviqnSI4kwUWk', 'My-Custom-Header': 'foobar' };
+    const headers = { 'Authorization': 'Bearer '+this.token, 'My-Custom-Header': 'foobar' };
     const body={
        "comment": {
           "body": cmt

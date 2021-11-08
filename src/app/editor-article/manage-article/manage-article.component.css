@@ -1,0 +1,60 @@
+.header_manage {
+    background-color: black;
+    color: white;
+    padding: 30px 0;
+}
+
+.body {
+    margin-top: 20px;
+    padding: 30px 0;
+}
+
+.user_area {
+    padding: 30px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+span {
+    color: blue;
+    border-bottom: 1px solid blue;
+    margin-right: 3px;
+}
+
+.first_area {
+    justify-content: start;
+}
+
+.user_area p {
+    margin-bottom: 0;
+}
+
+img,
+.user {
+    margin-right: 3px;
+}
+
+img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+.user_area .btn {
+    margin-right: 3px;
+}
+
+.postcomt {
+    padding: 15px;
+    background-color: rgb(233, 233, 233);
+}
+
+.cmt_area {
+    border: 1px solid rgb(233, 233, 233);
+}
+
+.cmt_area textarea {
+    background-color: white;
+    color: black;
+    padding: 20px;
+}
