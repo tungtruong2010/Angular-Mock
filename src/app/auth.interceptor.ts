@@ -19,7 +19,6 @@ export class AuthInterceptor implements HttpInterceptor {
         headers: request.headers.set("Authorization", "Berzer"+this.authService.getToken())
       })
     }
-    console.log(request);
 
     return next.handle(request);
   }

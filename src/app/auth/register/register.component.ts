@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
       null,[Validators.required]
     ));
     this.registerForm.addControl('email', new FormControl(
-      null,[Validators.required, Validators.pattern('^[a-z][a-z0-9_\.]{0,32}@gmail.com')]
+      null,[Validators.required, Validators.email]
     ));
     this.registerForm.addControl('pass', new FormControl(
       null,[Validators.required]
@@ -41,6 +41,7 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         this.authService.logUserIn(data.user);
         this.route.navigate(['/home']);
+        this.authService.regisStatus.emit(data.user);
       },
       (err) =>{
         console.log('err');
@@ -50,6 +51,6 @@ export class RegisterComponent implements OnInit {
     )
   }
   routeToLogin(){
-    this.route.navigate(['/login']);
+    this.route.navigate(['home//login']);
   }
 }

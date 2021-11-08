@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(private route: Router , private  authService: AuthService) {
     this.loginForm= new FormGroup({});
     this.loginForm.addControl('email', new FormControl(
-      null,[Validators.required, Validators.pattern('^[a-z][a-z0-9_\.]{0,32}@gmail.com')]
+      null,[Validators.required, Validators.email]
     ));
     this.loginForm.addControl('pass', new FormControl(
       null,[Validators.required]
@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
     (data:any)=>{
       console.log(data);
       this.authService.logUserIn(data.user);
-      this.route.navigate(['/home']);
+      this.route.navigate(['/']);
+      this.authService.loginStatus.emit(data.user);
     },
     (err) =>{
       console.log('err');
@@ -48,6 +49,6 @@ export class LoginComponent implements OnInit {
 
   }
   routeToRegister(){
-    this.route.navigate(['/register']);
+    this.route.navigate(['home/register']);
   }
 }

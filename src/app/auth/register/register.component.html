@@ -15,7 +15,7 @@
                     <input [formControlName]="'email'" type="email" class="form-control" placeholder="Enter email">
                     <ul class="text-danger" *ngIf="registerForm.get('email')!.invalid&&registerForm.get('email')!.dirty">
                         <li *ngIf="registerForm.get('email')!.hasError('required')">Email is required</li>
-                        <li *ngIf="registerForm.get('email')!.hasError('pattern')"> {{registerForm.get('email')?.value}} is not email format (@gmail.com)</li>
+                        <li *ngIf="registerForm.get('email')!.hasError('email')"> {{registerForm.get('email')?.value}} is not email format (@g...)</li>
                     </ul>
                 </div>
                 <div class="form-group">

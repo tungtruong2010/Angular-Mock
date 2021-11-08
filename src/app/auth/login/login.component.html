@@ -9,7 +9,7 @@
                     <input [formControlName]="'email'" type="email" class="form-control" placeholder="Enter email">
                     <ul class="text-danger" *ngIf="loginForm.get('email')!.invalid&&loginForm.get('email')!.dirty">
                         <li *ngIf="loginForm.get('email')!.hasError('required')">Email is required</li>
-                        <li *ngIf="loginForm.get('email')!.hasError('pattern')"> {{loginForm.get('email')?.value}} is not email format (@gmail.com)</li>
+                        <li *ngIf="loginForm.get('email')!.hasError('email')"> {{loginForm.get('email')?.value}} is not email format (@g...)</li>
                     </ul>
                 </div>
                 <div class="form-group">
