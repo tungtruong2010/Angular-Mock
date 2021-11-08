@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { EditorArticleModule } from './editor-article/editor-article.module';
 import { HeaderComponent } from './share/header/header.component';
 import { FooterComponent } from './share/footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -35,7 +36,7 @@ import { FooterComponent } from './share/footer/footer.component';
 
     //Nam
     ShareModule,
-
+    HttpClientModule,
 
 
 

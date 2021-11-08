@@ -11,6 +11,7 @@ import { ProfileService } from 'src/app/service/profile-services/profile.service
 })
 export class ProfileComponent implements OnInit {
   public userAccount:any;
+  public currentUserName:string = ''
   public isFollow:boolean = false;
   public article?:Article;
   constructor(private route:ActivatedRoute, private profileService:ProfileService) {
@@ -34,14 +35,30 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      let userInfo = params['userName'];
-      this.profileService.getProfileUser(userInfo).subscribe(
-        res => this.userAccount = res,
-        err => console.log(err)
-      )
+    this.route.paramMap.subscribe(
+      params => {
+        const userInfo = params.get('userName');
+        this.profileService.getProfileUser(userInfo).subscribe(
+          profile => {
+            this.userAccount = profile;
+            console.log(profile)
+          },
+          err => console.log(err)
+        )
+      }
+    )
 
-    })
+    this.profileService.getCurrentUser().subscribe(
+      res => {
+        console.log(res)
+        this.currentUserName = res?.user?.username
+        console.log(this.currentUserName)
+      },
+      err => console.log(err)
+    )
+
+
+
   }
 
   public handleToggleFollow():void {

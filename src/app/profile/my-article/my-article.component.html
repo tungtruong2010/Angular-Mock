@@ -1,1 +1,5 @@
-<p>my-article works!</p>
+<div class="my-articles">
+  <ng-container *ngFor="let article of listMyArticles">
+    <app-article  [article]="article"></app-article>
+  </ng-container>
+</div>
