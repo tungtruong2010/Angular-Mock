@@ -1,0 +1,28 @@
+<div class="container">
+    <form>
+        <input type="text" class="form-control form-control-lg" placeholder="Article Title" [ngModelOptions]="{standalone: true}" [(ngModel)]="title">
+        <br>
+        <input type="text" class="form-control" placeholder="What is the article about?" [ngModelOptions]="{standalone: true}" [(ngModel)]="maincontent">
+        <br>
+        <textarea class="form-control form-control-sm" rows="5" placeholder="Write your article (in markdown)" [ngModelOptions]="{standalone: true}" [(ngModel)]="markdown"></textarea>
+        <br>
+        <input type="text" class="form-control form-control-sm" placeholder="Enter tag" (keyup.enter)="getTag(tag)" [ngModelOptions]="{standalone: true}" [(ngModel)]="tag">
+        <br>
+    </form>
+    <ng-container *ngFor="let list of tagList">
+        <label>{{list}}
+            <button class="btn" (click)="deletetag(list)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+        </label> &nbsp;
+    </ng-container>
+    <div class="d-flex justify-content-end" *ngIf="toggle==false">
+        <button class="btn btn-success" (click)="publishArticle(title,maincontent,markdown)">Publish Article</button>
+    </div>
+    <div class="d-flex justify-content-end" *ngIf="toggle==true">
+        <button class="btn btn-success" (click)="update(title,maincontent,markdown)">Update Article</button>
+    </div>
+    <br>
+</div>

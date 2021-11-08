@@ -28,19 +28,19 @@ export class RegisterComponent implements OnInit {
   register(){
     let user =  {
         "user":{
-          "username": this.registerForm.value.name,
-          "email": this.registerForm.value.email,
-          "password": this.registerForm.value.pass
+          "username": (this.registerForm.value.name).toString(),
+          "email": (this.registerForm.value.email).toString(),
+          "password": (this.registerForm.value.pass).toString(),
         }
     }
     console.log(user);
 
     this.authService.register(user).subscribe(
       (data:any)=>{
-        console.log(1);
-        console.log(data);
+        console.log(data.user);
+
         this.authService.logUserIn(data.user);
-        this.route.navigate(['/home']);
+        this.route.navigate(['/']);
         this.authService.regisStatus.emit(data.user);
       },
       (err) =>{
@@ -51,6 +51,6 @@ export class RegisterComponent implements OnInit {
     )
   }
   routeToLogin(){
-    this.route.navigate(['home//login']);
+    this.route.navigate(['/login']);
   }
 }

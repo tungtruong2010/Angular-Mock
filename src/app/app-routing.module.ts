@@ -21,8 +21,8 @@ import { ProfileModule } from './profile/profile.module';
 
 
 //Tùng
-import { ArticleComponent } from './editor-article/article/article.component';
-
+import { CreateArticleComponent } from './editor-article/create-article/create-article.component';
+import { ManageArticleComponent } from './editor-article/manage-article/manage-article.component';
 
 
 
@@ -46,7 +46,20 @@ const routes: Routes = [
 
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+  },
+  {
+    path: 'editor',
+    component: CreateArticleComponent
+  },
+  {
+    path: 'editor',
+    children:[
+      {
+        path:':slug',
+        component: ManageArticleComponent
+      }
+    ]
   },
   {
     path: 'api/profile/:userName',
