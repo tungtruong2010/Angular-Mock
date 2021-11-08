@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { ReplaySubject } from 'rxjs';
 @Injectable({
@@ -6,13 +6,16 @@ import { ReplaySubject } from 'rxjs';
 })
 export class EditorArticleService {
   public editvalue=new ReplaySubject();
+  public deleteUpdated=new ReplaySubject();
+  // public deleteUpdated: EventEmitter<any>;
   public token = localStorage.getItem('token');
-  
-  constructor(public http: HttpClient) { this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODJhZjVhYWFlZGZmNDg3MDEzNGRlMCIsInVzZXJuYW1lIjoiamFjb2IiLCJleHAiOjE2NDExMzg1MjIsImlhdCI6MTYzNTk1NDUyMn0.UAA71D8-bZ0nmdwxoyBFiLzIr1OGmXEhKEz9WPGAadI' }
-  
+
+  constructor(public http: HttpClient) {
+    // this.deleteUpdated = new EventEmitter();
+  }
+
   createArticle(title:string,maincontent:string,markdown:string, tagList:any){
-    
-    const headers = { 'Authorization': 'Bearer '+this.token, 'My-Custom-Header': 'foobar' };
+
     const body={
       "article": {
           "title": title,
@@ -21,17 +24,19 @@ export class EditorArticleService {
           "tagList": tagList,
       }
     }
-    return this.http.post('http://localhost:3000/api/articles',body,{headers})
+    console.log(this.token);
+
+    return this.http.post('http://localhost:3000/api/articles',body)
   }
   deleteArticle(slug:string){
-    const headers = { 'Authorization': 'Bearer '+this.token, 'My-Custom-Header': 'foobar' };
-    return this.http.delete('http://localhost:3000/api/articles/'+slug,{headers})
+    console.log(slug);
+
+    return this.http.delete('http://localhost:3000/api/articles/'+slug)
   }
   updateArticle(e:any){
     this.editvalue.next(e);
   }
   ChangeUpdateArticle(title:string,maincontent:string,markdown:string, tagList:any,slug:string){
-    const headers = { 'Authorization': 'Bearer '+this.token, 'My-Custom-Header': 'foobar' };
     const body={
       "article": {
           "title": title,
@@ -40,22 +45,21 @@ export class EditorArticleService {
           "tagList": tagList,
       }
     }
-    return this.http.put('http://localhost:3000/api/articles/'+slug,body,{headers})
+    return this.http.put('http://localhost:3000/api/articles/'+slug,body)
   }
   getCmt(slug:any){
     return this.http.get(`http://localhost:3000/api/articles/${slug}/comments`)
   }
   postCmt(cmt:string,slug:string){
-    const headers = { 'Authorization': 'Bearer '+this.token, 'My-Custom-Header': 'foobar' };
     const body={
        "comment": {
           "body": cmt
         }
     }
-    return this.http.post(`http://localhost:3000/api/articles/${slug}/comments`,body,{headers})
+    return this.http.post(`http://localhost:3000/api/articles/${slug}/comments`,body)
   }
   getArticle(slug:any){
     return this.http.get(`http://localhost:3000/api/articles/${slug}`);
   }
-  
+
 }

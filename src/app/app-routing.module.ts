@@ -3,10 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 //Tan
 import { LoginComponent } from './auth/login/login.component';
-
-
-
-
+import { RegisterComponent } from './auth/register/register.component';
+import { HomeComponent } from './home/home/home.component';
+import { SettingComponent } from './auth/setting/setting.component';
 
 
 
@@ -33,8 +32,21 @@ import { ManageArticleComponent } from './editor-article/manage-article/manage-a
 
 const routes: Routes = [
   {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'setting',
+    component: SettingComponent
+  },
+  {
     path: 'login',
     component: LoginComponent
+  },
+
+  {
+    path: 'register',
+    component: RegisterComponent,
   },
   {
     path: 'editor',
@@ -55,6 +67,7 @@ const routes: Routes = [
       m => m.ProfileModule
     )
   }
+
 ];
 
 @NgModule({

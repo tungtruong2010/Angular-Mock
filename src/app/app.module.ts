@@ -10,11 +10,16 @@ import { FormsModule } from '@angular/forms';
 
 
 import { EditorArticleModule } from './editor-article/editor-article.module';
+
+
+
+
+import { AuthModule } from './auth/auth.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+import { HomeModule } from './home/home.module';
 import { HeaderComponent } from './share/header/header.component';
 import { FooterComponent } from './share/footer/footer.component';
-
-
-
 
 @NgModule({
   declarations: [
@@ -27,11 +32,8 @@ import { FooterComponent } from './share/footer/footer.component';
     AppRoutingModule,
     NgbModule,
     //Tan
-
-
-
-
-
+    AuthModule,
+    HomeModule,
 
 
 
@@ -49,7 +51,15 @@ import { FooterComponent } from './share/footer/footer.component';
     //Tung
     EditorArticleModule
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent]
+
+
 })
 export class AppModule { }

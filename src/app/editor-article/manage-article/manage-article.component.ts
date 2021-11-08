@@ -30,7 +30,9 @@ export class ManageArticleComponent implements OnInit {
     this.router.navigate(['/editor'])
   }
   deleteAr(slugvalue:string){
-    this.service.deleteArticle(slugvalue);
-    this.router.navigate(['/']);
+    this.service.deleteArticle(slugvalue).subscribe((data:any)=>{
+    this.router.navigate(['']);
+
+    });
   }
 }
