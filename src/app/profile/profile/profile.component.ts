@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { Article } from 'src/app/model/Article';
 import { ProfileService } from 'src/app/service/profile-services/profile.service';
 
@@ -13,25 +13,8 @@ export class ProfileComponent implements OnInit {
   public userAccount:any;
   public currentUserName:string = ''
   public isFollow:boolean = false;
-  public article?:Article;
-  constructor(private route:ActivatedRoute, private profileService:ProfileService) {
-    this.article = {
-      "slug": "how-to-train-your-dragon",
-      "title": "How to train your dragon",
-      "description": "Ever wonder how?",
-      "body": "It takes a Jacobian",
-      "tagList": ["dragons", "training"],
-      "createdAt": "2016-02-18T03:22:56.637Z",
-      "updatedAt": "2016-02-18T03:48:35.824Z",
-      "favorited": false,
-      "favoritesCount": 0,
-      "author": {
-        "username": "jake",
-        "bio": "I work at statefarm",
-        "image": "https://i.stack.imgur.com/xHWG8.jpg",
-        "following": false
-        }
-    }
+
+  constructor(private route:ActivatedRoute, private profileService:ProfileService, private _router:Router) {
   }
 
   ngOnInit(): void {
@@ -41,20 +24,24 @@ export class ProfileComponent implements OnInit {
         this.profileService.getProfileUser(userInfo).subscribe(
           profile => {
             this.userAccount = profile;
-            console.log(profile)
+            this.isFollow = profile.following;
           },
-          err => console.log(err)
+          err => {
+            this._router.navigateByUrl('')
+          }
         )
+
       }
     )
 
     this.profileService.getCurrentUser().subscribe(
       res => {
-        console.log(res)
-        this.currentUserName = res?.user?.username
-        console.log(this.currentUserName)
+        this.currentUserName = res?.user?.username;
       },
-      err => console.log(err)
+      err => {
+        console.log(err);
+        this._router.navigateByUrl('')
+      }
     )
 
 
@@ -62,7 +49,17 @@ export class ProfileComponent implements OnInit {
   }
 
   public handleToggleFollow():void {
-    this.isFollow = !this.isFollow;
+    if(!this.isFollow){
+      this.isFollow = !this.isFollow;
+      this.profileService.followUser(this.userAccount?.profile?.username).subscribe(
+        m => console.log("follow user", m)
+      )
+    }else {
+      this.isFollow = !this.isFollow;
+      this.profileService.unFollowUser(this.userAccount?.profile?.username).subscribe(
+        m => console.log("unfollow user", m)
+      )
+    }
   }
 
 }

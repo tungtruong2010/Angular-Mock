@@ -1,1 +1,13 @@
-<p>favorite-article works!</p>
+<div class="my-articles" *ngIf="listFavoritedArticles.length > 0; else noFavoritedArticles">
+  <ng-container *ngFor="let article of listFavoritedArticles" >
+    <app-article  [article]="article"></app-article>
+  </ng-container>
+  <app-pagination
+    [limitNumber]="limitNumber"
+    [totalItems]="articlesCount"
+    (selectPage)="handleSelectPage($event)">
+</app-pagination>
+</div>
+<ng-template #noFavoritedArticles >
+  <p class="mt-3">No articles are here ... yet</p>
+</ng-template>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from 'src/app/service/profile-services/profile.service';
 
 @Component({
@@ -9,23 +9,36 @@ import { ProfileService } from 'src/app/service/profile-services/profile.service
 })
 export class MyArticleComponent implements OnInit {
   public listMyArticles:Array<any> = [];
-  constructor(private route:ActivatedRoute, private profileService:ProfileService) {
-
+  public limitNumber:number = 5;
+  public articlesCount:number = 0;
+  constructor(private route:ActivatedRoute, private profileService:ProfileService, private _router:Router) {
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
       params => {
         const userInfo = params.get('userName');
-        console.log(userInfo)
-        this.profileService.getMyArticles(userInfo).subscribe(
+        this.profileService.userName = userInfo;
+        this.profileService.getMyArticles(0, this.limitNumber).subscribe(
           res => {
-            console.log(userInfo)
             this.listMyArticles = res.articles;
-            console.log(res)
+            this.articlesCount = res.articlesCount;
           },
-          err => console.log(err)
+          err => {
+            console.log(err)
+            this._router.navigateByUrl('')
+          }
         )
+      }
+    )
+
+
+  }
+
+  public handleSelectPage(pageNumber:number):void {
+    this.profileService.getMyArticles((pageNumber - 1) * this.limitNumber, this.limitNumber).subscribe(
+      res => {
+        this.listMyArticles = res.articles;
       }
     )
   }
