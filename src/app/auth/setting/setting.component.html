@@ -1,0 +1,23 @@
+<div class="container">
+    <h1>Your Setting</h1>
+    <form>
+        <input type="text" class="form-control form-control-sm" placeholder="Img link" [ngModelOptions]="{standalone: true}" [(ngModel)]="imgLink">
+        <br>
+        <input type="text" class="form-control" placeholder="Name" [ngModelOptions]="{standalone: true}" [(ngModel)]="name">
+        <br>
+        <textarea class="form-control form-control-sm" rows="5" placeholder="Short bio about you" [ngModelOptions]="{standalone: true}" [(ngModel)]="bio"></textarea>
+        <br>
+        <input type="text" class="form-control" placeholder="Email" [ngModelOptions]="{standalone: true}" [(ngModel)]="email">
+        <br>
+        <input type="text" class="form-control" placeholder="New password" [ngModelOptions]="{standalone: true}" [(ngModel)]="newPass">
+        <br>
+    </form>
+
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-success" (click)="updateUser()">Update User</button>
+    </div>
+    <div class="">
+        <button class="btn btn-danger" (click)="logOut()">Log out</button>
+    </div>
+    <br>
+</div>

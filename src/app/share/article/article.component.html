@@ -1,28 +1,27 @@
 <div *ngIf="article" class="article my-4">
-  <div class="author-info d-flex justify-content-between">
-    <div class="d-flex">
-      <img class="avatar mr-3" [src]= "article?.author?.image" (click)="showArticleDetail(article.slug)" />
-      <span>
+    <div class="author-info d-flex justify-content-between">
+        <div class="d-flex">
+            <img class="avatar mr-3" [src]="article?.author?.image" (click)="showArticleDetail(article.slug)" />
+            <span>
         <p class="author-name text-success mb-0" (click)="showArticleDetail(article.slug)">{{article?.author?.username}}</p>
         <p class="text-muted" style="font-size: 15px;">{{article?.createdAt | date : 'longDate'}}</p>
       </span>
-    </div>
-    <button type="button" class="btn btn-success" style="height: 35px;" (click)="toggleLikeArticle(article.favoritesCount)">
+        </div>
+        <button type="button" class="btn btn-success" style="height: 35px;" (click)="toggleLikeArticle(article.favoritesCount)">
       <i class="fas fa-heart mr-1"></i>
       <span>{{favoritesCount}}</span>
     </button>
-  </div>
-  <div class="article-info" (click)="showArticleDetail(article.slug)" >
-    <h4 class="title mb-1">{{article?.title}}</h4>
-    <p class="text-secondary description">{{article?.description}}</p>
-    <div class="d-flex justify-content-between align-items-center">
-      <span class="article-detail">Read more ...</span>
-      <ul>
-        <li *ngFor="let tag of article?.tagList">
-          <span class="tag">{{tag}}</span>
-        </li>
-      </ul>
     </div>
-  </div>
-  <hr>
+    <div class="article-info" (click)="showArticleDetail(article.slug)">
+        <h4 class="title mb-1">{{article?.title}}</h4>
+        <p class="text-secondary description">{{article?.description}}</p>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="article-detail">Read more ...</span>
+            <ul>
+                <li *ngFor="let tag of article?.tagList">
+                    <span class="tag">{{tag}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

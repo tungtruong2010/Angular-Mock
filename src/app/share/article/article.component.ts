@@ -20,7 +20,7 @@ export class ArticleComponent implements OnInit {
   }
 
   public showArticleDetail(slug:string):void {
-    this._router.navigateByUrl(`article/${slug}`)
+    this._router.navigateByUrl(`editor/${slug}`)
   }
 
   public toggleLikeArticle(like:number):void {

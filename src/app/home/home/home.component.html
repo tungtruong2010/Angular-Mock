@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <ul ngbNav #nav="ngbNav" class="nav-tabs">
+                <li *ngIf="showYourFeed" ngbNavItem>
+                    <a ngbNavLink>Your Feed</a>
+                    <ng-template ngbNavContent>
+                        <p>These navs will always stay in DOM and have no roles</p>
+
+                    </ng-template>
+                </li>
+                <li ngbNavItem>
+                    <a ngbNavLink>Global Feed</a>
+                    <ng-template ngbNavContent>
+                        <p>Because default values have been customized in the config</p>
+                        <ng-container *ngFor="let article of articleArray">
+                            <app-article [article]="article"></app-article>
+                        </ng-container>
+                        <app-pagination [totalItems]="10" [limitNumber]="5" (selectPage)="handlePagination($event)"></app-pagination>
+
+
+                    </ng-template>
+                </li>
+            </ul>
+
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>
+        <div class="col-2">
+            <div class="">
+                <p>Popular Tags</p>
+                <ng-container *ngFor="let tag of tagArray">
+                    <p><b>#{{tag}}</b></p>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
