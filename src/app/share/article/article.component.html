@@ -4,12 +4,12 @@
             <img class="avatar mr-3" [src]="article?.author?.image" (click)="showArticleDetail(article.slug)" />
             <span>
         <p class="author-name text-success mb-0" (click)="showArticleDetail(article.slug)">{{article?.author?.username}}</p>
-        <p class="text-muted" style="font-size: 15px;">{{article?.createdAt | date : 'mediumDate'}}</p>
+        <p class="text-muted" style="font-size: 15px;">{{article?.createdAt | date : 'longDate'}}</p>
       </span>
         </div>
         <button type="button" class="btn btn-success" style="height: 35px;" (click)="toggleLikeArticle(article.favoritesCount)">
       <i class="fas fa-heart mr-1"></i>
-      <span>{{article?.favoritesCount}}</span>
+      <span>{{favoritesCount}}</span>
     </button>
     </div>
     <div class="article-info" (click)="showArticleDetail(article.slug)">

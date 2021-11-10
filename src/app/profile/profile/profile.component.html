@@ -2,18 +2,26 @@
   <div class="header bg-light">
     <div class="container px-5">
       <div class="profile-info text-center">
-        <img class="avatar-big mb-3" [src]= "userAccount?.image" />
-        <h3>{{userAccount?.username}}</h3>
+        <img class="avatar-big mb-3" [src]= "userAccount?.profile?.image" />
+        <h3>{{userAccount?.profile?.username}}</h3>
       </div>
       <div class="action-btn d-flex justify-content-end">
-        <button *ngIf= "userAccount === 'userAccount'; else followBtn" type="button" class="btn btn-outline-secondary">
+        <button
+          *ngIf= "userAccount?.profile?.username === currentUserName; else followBtn"
+          type="button"
+          class="btn btn-outline-secondary"
+          routerLink="/settings"
+        >
           <i class="fas fa-cog"></i>
           Edit Profile
-        </button> 
+        </button>
         <ng-template #followBtn>
           <button type="button" class="btn btn-outline-secondary" (click)="handleToggleFollow()">
-            <i class="fas fa-plus"></i>
-            {{isFollow ? 'Follow' : 'UnFollow'}}
+            <i class="fas fa-minus" *ngIf="isFollow; else unfollow"></i>
+            <ng-template #unfollow>
+              <i class="fas fa-plus" ></i>
+            </ng-template>
+            {{isFollow ? 'UnFollow' : 'Follow'}}
           </button>
         </ng-template>
       </div>
@@ -30,7 +38,7 @@
       </li>
     </ul>
     <hr class="my-0">
-    <app-article [article]="article"></app-article>
+    <router-outlet></router-outlet>
   </div>
 </div>
 

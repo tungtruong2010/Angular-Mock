@@ -17,10 +17,10 @@ ul li {
   margin-right: 5px;
 }
 ul li .tag {
-  border: 1px solid #d6d1d1;
+  border: 1px solid #666161;
   border-radius: 15px;
   padding: 0 0.5rem;
-  color: #d6d1d1;
+  color: #666161;
 
 }
 .article-info{
