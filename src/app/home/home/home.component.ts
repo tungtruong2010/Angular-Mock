@@ -11,16 +11,21 @@ import { EditorArticleService } from 'src/app/service/implement-services/editor-
   providers: [NgbNavConfig]
 })
 export class HomeComponent implements OnInit {
+  public active = 2;
   public articleArray:any = [];
   public tagArray:any = [];
+  public totalArticle!:number;
   public showYourFeed:boolean = false;
   constructor(private config: NgbNavConfig, private  authService: AuthService, private editorService: EditorArticleService) {
     config.destroyOnHide = false;
     config.roles = false;
   }
   ngOnInit(): void {
+    this.authService.getArticles().subscribe((data:any)=>{
+      this.totalArticle = data.articles.length;
+    })
     this.showYourFeed =  this.authService.isLoggedIn();
-    this.authService.getArticles(0).subscribe((data:any)=>{
+    this.authService.getArticlesPerPage(0).subscribe((data:any)=>{
       this.articleArray = data.articles;
     })
 
@@ -31,7 +36,7 @@ export class HomeComponent implements OnInit {
     })
   }
   handlePagination(value:number){
-    this.authService.getArticles((value-1)*5).subscribe((data:any)=>{
+    this.authService.getArticlesPerPage((value-1)*5).subscribe((data:any)=>{
       this.articleArray = data.articles;
 
     })

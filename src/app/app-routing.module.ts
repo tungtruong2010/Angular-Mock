@@ -6,8 +6,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home/home.component';
 import { SettingComponent } from './auth/setting/setting.component';
-
-
+import { ToEditGuard } from './guards/to-edit.guard';
 
 
 //Nam
@@ -37,6 +36,7 @@ const routes: Routes = [
   },
   {
     path: 'setting',
+    canActivate: [ToEditGuard],
     component: SettingComponent
   },
   {
@@ -50,6 +50,7 @@ const routes: Routes = [
   },
   {
     path: 'editor',
+    canActivate: [ToEditGuard],
     component: CreateArticleComponent
   },
   {
@@ -57,12 +58,14 @@ const routes: Routes = [
     children:[
       {
         path:':slug',
+        canActivate: [ToEditGuard],
         component: ManageArticleComponent
       }
     ]
   },
   {
     path: 'api/profile/:userName',
+    canActivate: [ToEditGuard],
     loadChildren: () => import('./profile/profile.module').then(
       m => m.ProfileModule
     )

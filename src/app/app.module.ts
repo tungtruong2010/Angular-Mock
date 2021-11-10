@@ -20,6 +20,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { HomeModule } from './home/home.module';
 import { HeaderComponent } from './share/header/header.component';
 import { FooterComponent } from './share/footer/footer.component';
+import { ToEditGuard } from './guards/to-edit.guard';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { FooterComponent } from './share/footer/footer.component';
     EditorArticleModule
   ],
   providers: [
+    ToEditGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

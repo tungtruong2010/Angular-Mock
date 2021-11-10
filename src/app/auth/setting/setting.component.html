@@ -1,14 +1,22 @@
-<div class="container">
+<div class="container setting">
     <h1>Your Setting</h1>
     <form>
+        <label for="">Image Link</label>
         <input type="text" class="form-control form-control-sm" placeholder="Img link" [ngModelOptions]="{standalone: true}" [(ngModel)]="imgLink">
         <br>
-        <input type="text" class="form-control" placeholder="Name" [ngModelOptions]="{standalone: true}" [(ngModel)]="name">
+        <img style="border-radius:50%; width: 150px; height: 150px;" [src]="imgLink" alt="">
         <br>
+        <br>
+        <label for="">Name</label>
+        <input type="text" class="form-control" placeholder="Name" [ngModelOptions]="{standalone: true}" [(ngModel)]="name" [disabled]="true">
+        <br>
+        <label for="">Bio</label>
         <textarea class="form-control form-control-sm" rows="5" placeholder="Short bio about you" [ngModelOptions]="{standalone: true}" [(ngModel)]="bio"></textarea>
         <br>
+        <label for="">Email</label>
         <input type="text" class="form-control" placeholder="Email" [ngModelOptions]="{standalone: true}" [(ngModel)]="email">
         <br>
+        <label for="">New password</label>
         <input type="text" class="form-control" placeholder="New password" [ngModelOptions]="{standalone: true}" [(ngModel)]="newPass">
         <br>
     </form>

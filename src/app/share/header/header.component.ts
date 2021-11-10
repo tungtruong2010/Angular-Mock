@@ -13,6 +13,10 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    let token = localStorage.getItem("token");
+    if(token!=null){
+      this.isLoggin = true;
+    }
     this.authService.settingStatus.subscribe((status:any)=>{
       this.isLoggin = status;
       this.account_name = '';

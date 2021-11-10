@@ -27,6 +27,12 @@ export class AuthService {
   login(body: any){
     return this.http.post('http://localhost:3000/api/users/login', body )
   }
+  updateUser(userUpdate: any){
+    return this.http.put('http://localhost:3000/api/user', userUpdate)
+  }
+  getCurrentUser(){
+    return this.http.get('http://localhost:3000/api/user');
+  }
   logUserIn(user:any){
     this.loggedIn = true;
     this.user = user;
@@ -42,7 +48,10 @@ export class AuthService {
   setToken(value:string){
     this.token = value;
   }
-  getArticles(offsetNum: number){
+  getArticles(){
+    return this.http.get('http://localhost:3000/api/articles');
+  }
+  getArticlesPerPage(offsetNum: number){
     return this.http.get('http://localhost:3000/api/articles?limit=5&offset='+offsetNum);
   }
   getTags(){

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/implement-services/auth.service';
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 @Component({
   selector: 'app-setting',
@@ -16,12 +17,35 @@ export class SettingComponent implements OnInit {
   constructor(private authService: AuthService, private route: Router) { }
 
   ngOnInit(): void {
-    let currentUser = this.authService.user;
-    this.name = currentUser.username;
-    this.email = currentUser.email;
+    this.authService.getCurrentUser().subscribe((currentUser:any)=>{
+      this.bio = currentUser.user.bio;
+      this.imgLink = currentUser.user.image;
+      this.name = currentUser.user.username;
+      this.email = currentUser.user.email;
+    })
+
 
   }
   updateUser(){
+    let user = {
+        "user": {
+            "email": this.email,
+            "bio": this.bio,
+            "image": this.imgLink
+        }
+    }
+    this.authService.updateUser(user).subscribe(
+      (data:any)=>{
+        console.log(data);
+        this.route.navigate(['/']);
+
+      },
+      (err) =>{
+        console.log(err);
+
+      }
+    )
+
 
   }
   logOut(){

@@ -41,9 +41,7 @@ export class LoginComponent implements OnInit {
       this.authService.loginStatus.emit(data.user);
     },
     (err) =>{
-      console.log('err');
-
-      alert('tk mk sai')
+      alert('user name or password failed')
     }
   )
 

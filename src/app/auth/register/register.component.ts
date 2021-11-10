@@ -44,9 +44,7 @@ export class RegisterComponent implements OnInit {
         this.authService.regisStatus.emit(data.user);
       },
       (err) =>{
-        console.log('err');
-
-        alert('tk mk sai')
+        alert('entity already exists');
       }
     )
   }
