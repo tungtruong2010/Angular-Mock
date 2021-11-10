@@ -28,7 +28,8 @@ export class ProfileService {
   }
 
   public getFavoritedArticles(pageNumber:number, limitNumber:number):Observable<any>{
-    return this.http.get(`${BASE_API}/articles?favorited=${this.userName}&limit=${limitNumber}&offset=${pageNumber}`)
+    return this.http.get(`${BASE_API}/articles?favorited=${this.userName}&limit=${limitNumber}&offset=${pageNumber}
+    `)
   }
 
   public followUser(userName:string):Observable<any> {

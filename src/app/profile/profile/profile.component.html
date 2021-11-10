@@ -17,8 +17,11 @@
         </button>
         <ng-template #followBtn>
           <button type="button" class="btn btn-outline-secondary" (click)="handleToggleFollow()">
-            <i class="fas fa-plus"></i>
-            {{isFollow ? 'Follow' : 'UnFollow'}}
+            <i class="fas fa-minus" *ngIf="isFollow; else unfollow"></i>
+            <ng-template #unfollow>
+              <i class="fas fa-plus" ></i>
+            </ng-template>
+            {{isFollow ? 'UnFollow' : 'Follow'}}
           </button>
         </ng-template>
       </div>

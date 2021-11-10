@@ -31,8 +31,6 @@ export class MyArticleComponent implements OnInit {
         )
       }
     )
-
-
   }
 
   public handleSelectPage(pageNumber:number):void {

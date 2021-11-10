@@ -15,9 +15,9 @@ export class FavoriteArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(
+    this.route?.parent?.params.subscribe(
       params => {
-        const userInfo = params.get('userName');
+        const userInfo = params.userName;
         this.profileService.userName = userInfo;
         this.profileService.getFavoritedArticles(0, this.limitNumber).subscribe(
           res => {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Article } from 'src/app/model/Article';
 import { ProfileService } from 'src/app/service/profile-services/profile.service';
@@ -12,7 +12,6 @@ export class ArticleComponent implements OnInit {
   @Input() article?:Article ;
   public favoritesCount:number | any = 0;
   public statusLikeArticle:boolean = false;
-  // @Output() handleToggleLikeArticle = new EventEmitter<number>()
   constructor(private _router:Router, private profileService:ProfileService) {
   }
 
@@ -21,22 +20,28 @@ export class ArticleComponent implements OnInit {
   }
 
   public showArticleDetail(slug:string):void {
-    this._router.navigateByUrl(`api/article/${slug}`)
+    this._router.navigateByUrl(`article/${slug}`)
   }
 
   public toggleLikeArticle(like:number):void {
     // this.handleToggleLikeArticle.emit(like);
     if(!this.statusLikeArticle){
-      this.favoritesCount += 1;
+      // this.favoritesCount += 1;
       this.statusLikeArticle = true;
       this.profileService.likeArticle(this.article?.slug).subscribe(
-        m => console.log("like article", m)
+        res => {
+          // console.log("like article", res);
+          this.favoritesCount = res?.article.favoritesCount
+        }
       )
-    }else {
-      this.favoritesCount -= 1;
+    } else {
+      // this.favoritesCount -= 1;
       this.statusLikeArticle = false;
       this.profileService.unlikeArticle(this.article?.slug).subscribe(
-        m => console.log("unlike article", m)
+        res => {
+          // console.log("unlike article", res);
+          this.favoritesCount = res?.article.favoritesCount
+        }
       )
     }
 

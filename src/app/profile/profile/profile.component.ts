@@ -12,7 +12,7 @@ import { ProfileService } from 'src/app/service/profile-services/profile.service
 export class ProfileComponent implements OnInit {
   public userAccount:any;
   public currentUserName:string = ''
-  public isFollow:boolean = false;
+  public isFollow?:boolean;
 
   constructor(private route:ActivatedRoute, private profileService:ProfileService, private _router:Router) {
   }
@@ -22,15 +22,14 @@ export class ProfileComponent implements OnInit {
       params => {
         const userInfo = params.get('userName');
         this.profileService.getProfileUser(userInfo).subscribe(
-          profile => {
-            this.userAccount = profile;
-            this.isFollow = profile.following;
+          res => {
+            this.userAccount = res;
+            // this.isFollow = res.profile.following;
           },
           err => {
             this._router.navigateByUrl('')
           }
         )
-
       }
     )
 
@@ -39,25 +38,23 @@ export class ProfileComponent implements OnInit {
         this.currentUserName = res?.user?.username;
       },
       err => {
-        console.log(err);
         this._router.navigateByUrl('')
       }
     )
-
-
-
   }
 
   public handleToggleFollow():void {
     if(!this.isFollow){
-      this.isFollow = !this.isFollow;
       this.profileService.followUser(this.userAccount?.profile?.username).subscribe(
-        m => console.log("follow user", m)
+        res => {
+          this.isFollow = res.profile.following
+        }
       )
     }else {
-      this.isFollow = !this.isFollow;
       this.profileService.unFollowUser(this.userAccount?.profile?.username).subscribe(
-        m => console.log("unfollow user", m)
+        res => {
+          this.isFollow = res.profile.following
+        }
       )
     }
   }
