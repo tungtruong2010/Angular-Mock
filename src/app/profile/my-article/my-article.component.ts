@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from 'src/app/service/profile-services/profile.service';
 
 @Component({
@@ -11,7 +12,12 @@ export class MyArticleComponent implements OnInit {
   public listMyArticles:Array<any> = [];
   public limitNumber:number = 5;
   public articlesCount:number = 0;
-  constructor(private route:ActivatedRoute, private profileService:ProfileService, private _router:Router) {
+  constructor(
+    private route:ActivatedRoute,
+    private profileService:ProfileService,
+    private _router:Router,
+    private toastr:ToastrService
+  ) {
   }
 
   ngOnInit(): void {
@@ -25,7 +31,7 @@ export class MyArticleComponent implements OnInit {
             this.articlesCount = res.articlesCount;
           },
           err => {
-            console.log(err)
+            this.toastr.error()
             this._router.navigateByUrl('')
           }
         )

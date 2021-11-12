@@ -18,9 +18,7 @@ export class ProfileService {
   }
 
   public getCurrentUser():Observable<any>{
-    const tokenByUser = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODg5YzFhNTc5YjQ3NGMwNzY0MzY0ZSIsInVzZXJuYW1lIjoibmFtNzg5IiwiZXhwIjoxNjQxNjM1NDk2LCJpYXQiOjE2MzY0NTE0OTZ9.cDQqRecVQDX8Ba_VCDJn4wT_0i9kqZkUKdjG8AfFHcY'
-    const headers = { 'Authorization': `Bearer ${tokenByUser}`}
-    return this.http.get(`${BASE_API}/user`,{headers} )
+    return this.http.get(`${BASE_API}/user`)
   }
 
   public getMyArticles(pageNumber:number, limitNumber:number):Observable<any> {
@@ -33,26 +31,18 @@ export class ProfileService {
   }
 
   public followUser(userName:string):Observable<any> {
-    const tokenByUser = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODg5YzFhNTc5YjQ3NGMwNzY0MzY0ZSIsInVzZXJuYW1lIjoibmFtNzg5IiwiZXhwIjoxNjQxNjM1NDk2LCJpYXQiOjE2MzY0NTE0OTZ9.cDQqRecVQDX8Ba_VCDJn4wT_0i9kqZkUKdjG8AfFHcY'
-    const headers = { 'Authorization': `Bearer ${tokenByUser}`}
-    return this.http.post(`${BASE_API}/profiles/${userName}/follow`,{}, {headers})
+    return this.http.post(`${BASE_API}/profiles/${userName}/follow`,{})
   }
 
   public unFollowUser(userName:string):Observable<any> {
-    const tokenByUser = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODg5YzFhNTc5YjQ3NGMwNzY0MzY0ZSIsInVzZXJuYW1lIjoibmFtNzg5IiwiZXhwIjoxNjQxNjM1NDk2LCJpYXQiOjE2MzY0NTE0OTZ9.cDQqRecVQDX8Ba_VCDJn4wT_0i9kqZkUKdjG8AfFHcY'
-    const headers = { 'Authorization': `Bearer ${tokenByUser}`}
-    return this.http.delete(`${BASE_API}/profiles/${userName}/follow`,{headers})
+    return this.http.delete(`${BASE_API}/profiles/${userName}/follow`)
   }
 
   public likeArticle(slug:string | any):Observable<any> {
-    const tokenByUser = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODg5YzFhNTc5YjQ3NGMwNzY0MzY0ZSIsInVzZXJuYW1lIjoibmFtNzg5IiwiZXhwIjoxNjQxNjM1NDk2LCJpYXQiOjE2MzY0NTE0OTZ9.cDQqRecVQDX8Ba_VCDJn4wT_0i9kqZkUKdjG8AfFHcY'
-    const headers = { 'Authorization': `Bearer ${tokenByUser}`}
-    return this.http.post(`${BASE_API}/articles/${slug}/favorite`,{}, {headers})
+    return this.http.post(`${BASE_API}/articles/${slug}/favorite`,{})
   }
 
   public unlikeArticle(slug:string | any):Observable<any> {
-    const tokenByUser = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODg5YzFhNTc5YjQ3NGMwNzY0MzY0ZSIsInVzZXJuYW1lIjoibmFtNzg5IiwiZXhwIjoxNjQxNjM1NDk2LCJpYXQiOjE2MzY0NTE0OTZ9.cDQqRecVQDX8Ba_VCDJn4wT_0i9kqZkUKdjG8AfFHcY'
-    const headers = { 'Authorization': `Bearer ${tokenByUser}`}
-    return this.http.delete(`${BASE_API}/articles/${slug}/favorite`, {headers})
+    return this.http.delete(`${BASE_API}/articles/${slug}/favorite`)
   }
 }

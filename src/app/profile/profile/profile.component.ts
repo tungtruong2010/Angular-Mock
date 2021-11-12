@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Article } from 'src/app/model/Article';
 import { ProfileService } from 'src/app/service/profile-services/profile.service';
 
@@ -14,8 +15,12 @@ export class ProfileComponent implements OnInit {
   public currentUserName:string = ''
   public isFollow?:boolean;
 
-  constructor(private route:ActivatedRoute, private profileService:ProfileService, private _router:Router) {
-  }
+  constructor(
+    private route:ActivatedRoute,
+    private profileService:ProfileService,
+    private _router:Router,
+    private toastr:ToastrService
+  ){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -24,10 +29,10 @@ export class ProfileComponent implements OnInit {
         this.profileService.getProfileUser(userInfo).subscribe(
           res => {
             this.userAccount = res;
-            // this.isFollow = res.profile.following;
           },
           err => {
-            this._router.navigateByUrl('')
+            // this.toastr.error('User is not exits !')
+            // this._router.navigateByUrl('')
           }
         )
       }
@@ -47,13 +52,21 @@ export class ProfileComponent implements OnInit {
     if(!this.isFollow){
       this.profileService.followUser(this.userAccount?.profile?.username).subscribe(
         res => {
-          this.isFollow = res.profile.following
+          this.isFollow = res.profile.following;
+          this.toastr.success('Follow user success !')
+        },
+        err => {
+          this.toastr.error('Follow user fail !');
         }
       )
     }else {
       this.profileService.unFollowUser(this.userAccount?.profile?.username).subscribe(
         res => {
-          this.isFollow = res.profile.following
+          this.isFollow = res.profile.following;
+          this.toastr.success('Unfollow user success !')
+        },
+        err => {
+          this.toastr.error('UnFollow user fail !')
         }
       )
     }
