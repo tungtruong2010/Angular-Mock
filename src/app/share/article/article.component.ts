@@ -27,18 +27,18 @@ export class ArticleComponent implements OnInit {
   }
 
   public showArticleDetail(slug:string):void {
-    if(this.authService.loggedIn){
-      this._router.navigateByUrl(`editor/${slug}`)
-    }
-    else {
+    this._router.navigateByUrl(`editor/${slug}`)
+  }
+
+  public toggleLikeArticle(like:number):void {
+    if(!this.authService.loggedIn) {
       this.toastr.error('You must login first !')
       setTimeout(() => {
         this._router.navigateByUrl('/login')
       },1800)
+      return;
     }
-  }
 
-  public toggleLikeArticle(like:number):void {
     if(!this.statusLikeArticle){
       // this.favoritesCount += 1;
       this.statusLikeArticle = true;
@@ -48,10 +48,7 @@ export class ArticleComponent implements OnInit {
           this.favoritesCount = res?.article.favoritesCount
         },
         err => {
-          this.toastr.error('You must login first !')
-          setTimeout(() => {
-            this._router.navigateByUrl('/login')
-          },1800)
+          this.toastr.error('Like article fail!')
         }
       )
     } else {
@@ -63,25 +60,14 @@ export class ArticleComponent implements OnInit {
           this.favoritesCount = res?.article.favoritesCount
         },
         err => {
-          this.toastr.error('You must login first !')
-          setTimeout(() => {
-            this._router.navigateByUrl('/login')
-          },1800)
+          this.toastr.error('Unlike article fail !')
         }
       )
     }
   }
 
   public showProfileAuthor(author:string | any):void {
-    if(this.authService.loggedIn){
-      this._router.navigateByUrl(`profile/${author}`)
-    }
-    else {
-      this.toastr.error('You must login first !')
-      setTimeout(() => {
-        this._router.navigateByUrl('/login')
-      },1800)
-    }
+    this._router.navigateByUrl(`profile/${author}`)
   }
 
 }
