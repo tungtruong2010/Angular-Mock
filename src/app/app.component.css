@@ -1,0 +1,21 @@
+.foot {
+    position: relative;
+}
+
+button {
+    position: fixed;
+    bottom: 80px;
+    right: 5px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid rgb(211, 199, 199);
+    outline: none;
+    color: rgb(211, 199, 199);
+}
+
+button:hover {
+    /* border: 1px solid rgb(14, 13, 13); */
+    background-color: #56ab2f;
+    color: #fff;
+}

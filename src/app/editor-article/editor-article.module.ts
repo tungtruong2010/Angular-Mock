@@ -4,16 +4,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditorArticleService } from '../service/implement-services/editor-article.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { AuthInterceptor } from '../auth.interceptor';
+import { CommentsComponent } from './comments/comments.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
 import { ManageArticleComponent } from './manage-article/manage-article.component';
-import { LMarkdownEditorModule, MarkdownEditorComponent } from 'ngx-markdown-editor';
-import { NgbModalRef, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LMarkdownEditorModule } from 'ngx-markdown-editor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TagInputModule } from 'ngx-chips';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { CommentsComponent } from './comments/comments.component';
+import { TagInputModule } from 'ngx-chips';
+
 
 
 @NgModule({
@@ -32,7 +31,7 @@ import { CommentsComponent } from './comments/comments.component';
     BrowserAnimationsModule,
     TagInputModule,
     NgxSpinnerModule,
-    
+
   ],
   providers:[
     EditorArticleService,

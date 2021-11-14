@@ -1,41 +1,41 @@
 <nav class="navbar navbar-light bg-nav py-3">
     <div class="container">
         <a class="navbar-brand font-weight-bolder " routerLink="">
-          <h3 class="text-white">MOCK PROJECT</h3>
+            <h3 class="text-white">MOCK PROJECT</h3>
         </a>
         <div class="menu">
-          <ul *ngIf=" !isLoggin;else menuLoggin" class="navbar-nav flex-row text-muted">
-            <li class="nav-item mr-5">
-                <a class="nav-link text-white" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-                  true}">Home</a>
-            </li>
-            <li class="nav-item mr-5">
-                <a class="nav-link text-white" routerLink="/login" routerLinkActive="active">Sign In</a>
-            </li>
-            <li class="nav-item" routerLink="/register" routerLinkActive="active">
-                <a class="nav-link text-white">Sign Up</a>
-            </li>
-          </ul>
-          <ng-template #menuLoggin>
-            <ul class="navbar-nav flex-row text-muted">
-              <li class="nav-item mr-5">
-                <a class="nav-link text-white" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-                  true}">Home</a>
-              </li>
-              <li class="nav-item mr-5 d-flex align-items-center" routerLink="/editor" routerLinkActive="active">
-                <i class="far fa-edit mr-1 text-white"></i>
-                <a class="nav-link text-white">New Article</a>
-              </li>
-              <!-- <li class="nav-item mr-5 d-flex align-items-center" routerLink="/setting">
-                <i class="fas fa-cog mr-1"></i>
-                <a class="nav-link text-white">Setting</a>
-              </li> -->
-              <li class="nav-item mr-5 d-flex align-items-center" [routerLink]="['/profile', account_name]" routerLinkActive="active">
-                <img class="avatar mr-1" [src]="src" />
-                <a class="nav-link text-white">{{account_name}}</a>
-              </li>
+            <ul *ngIf=" !isLoggin;else menuLoggin" class="navbar-nav flex-row text-muted">
+                <li class="nav-item mr-5">
+                    <a class="nav-link text-white" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                true}">Home</a>
+                </li>
+                <li class="nav-item mr-5">
+                    <a class="nav-link text-white" routerLink="/login" routerLinkActive="active">Sign In</a>
+                </li>
+                <li class="nav-item" routerLink="/register" routerLinkActive="active">
+                    <a class="nav-link text-white">Sign Up</a>
+                </li>
             </ul>
-          </ng-template>
+            <ng-template #menuLoggin>
+                <ul class="navbar-nav flex-row text-muted">
+                    <li class="nav-item mr-5">
+                        <a class="nav-link text-white" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                true}">Home</a>
+                    </li>
+                    <li class="nav-item mr-5 d-flex align-items-center" routerLink="/editor" routerLinkActive="active">
+                        <i class="far fa-edit mr-1 text-white"></i>
+                        <a class="nav-link text-white">New Article</a>
+                    </li>
+                    <!-- <li class="nav-item mr-5 d-flex align-items-center" routerLink="/setting">
+              <i class="fas fa-cog mr-1"></i>
+              <a class="nav-link text-white">Setting</a>
+            </li> -->
+                    <li class="nav-item mr-5 d-flex align-items-center" [routerLink]="['/profile', account_name]" routerLinkActive="active">
+                        <img class="avatar mr-1" [src]="src" />
+                        <a class="nav-link text-white">{{account_name}}</a>
+                    </li>
+                </ul>
+            </ng-template>
         </div>
     </div>
 </nav>

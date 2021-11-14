@@ -20,13 +20,17 @@ export class ManageArticleComponent implements OnInit, OnChanges {
   private modalRef!: NgbModalRef;
   public followingName!:Boolean;
   public favorite!:Boolean;
+
   constructor(private _modalService: NgbModal,private service: EditorArticleService,private router: Router, private route: ActivatedRoute, private authsrv: AuthService) { }
 
   ngOnInit(): void {
     const showdown  = require('showdown'),
     converter = new showdown.Converter();
-     
+    let currentUser = localStorage.getItem("currentUser");
+
     this.follow= this.authsrv?.user?.username;
+
+
     let slug= this.route.snapshot.paramMap.get('slug');
     this.service.getArticle(slug).subscribe((data:any)=>{
       console.log("data get ar", data);
@@ -40,11 +44,16 @@ export class ManageArticleComponent implements OnInit, OnChanges {
     this.service.getCmt(slug).subscribe((data:any)=>{
       this.listCmt=data.comments;
     })
-    
+    if(currentUser!=null){
+      console.log(currentUser);
+
+      this.follow= currentUser;
+
+    }
   }
   ngOnChanges(){
     console.log("this.listCmt",this.listCmt);
-    
+
   }
   postCmt(slug:string){
     this.service.postCmt(this.cmt,slug).subscribe((data)=>{
@@ -80,25 +89,45 @@ export class ManageArticleComponent implements OnInit, OnChanges {
     },(reason) => {
       console.log(`Dismissed ${reason}`);
     })
-    
+
   }
   withAutofocus = `<button type="button" ngbAutofocus class="btn btn-danger"
       (click)="modal.close('Ok click')">Ok</button>`;
   followName(name:any){
-    this.followingName=true
-    this.service.follow(name).subscribe(data=>console.log(data))
+    if(this.authsrv.loggedIn){
+      this.followingName=true
+      this.service.follow(name).subscribe(data=>console.log(data))
+    }else{
+      this.router.navigate(['/login']);
+    }
+
   }
   unfollowName(username:any){
-    this.followingName=false
+    if(this.authsrv.loggedIn){
+      this.followingName=false
     this.service.unfollow(username).subscribe(data=>console.log(data))
+    }else{
+      this.router.navigate(['/login']);
+    }
+
   }
   fav(slug:any){
-    this.favorite=true
-    this.service.fav(slug).subscribe(data=>console.log(data))
+    if(this.authsrv.loggedIn){
+      this.favorite=true
+      this.service.fav(slug).subscribe(data=>console.log(data))
+    }else{
+      this.router.navigate(['/login']);
+    }
+
   }
   unfav(slug:any){
-    this.favorite=false
+    if(this.authsrv.loggedIn){
+         this.favorite=false
     this.service.unfav(slug).subscribe(data=>console.log(data))
+    }else{
+      this.router.navigate(['/login']);
+    }
+
   }
 }
 @Component({
@@ -121,7 +150,7 @@ export class ManageArticleComponent implements OnInit, OnChanges {
     <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Ok click')">OK</button>
   </div>
   `,
-  
+
 })
 export class NgbdModalConfirmAutofocus{
   constructor(public modal: NgbActiveModal) {}

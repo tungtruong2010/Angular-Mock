@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModal, NgbModalRef, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ShareModule } from './share/share.module';
 import { FormsModule } from '@angular/forms';
 
 
@@ -18,12 +17,14 @@ import { AuthModule } from './auth/auth.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { HomeModule } from './home/home.module';
-import { HeaderComponent } from './share/header/header.component';
-import { FooterComponent } from './share/footer/footer.component';
+import { ToEditGuard } from './guards/to-edit.guard';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { TagInputModule } from 'ngx-chips';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
+import { FooterComponent } from './share/footer/footer.component';
+import { HeaderComponent } from './share/header/header.component';
+import { ShareModule } from './share/share.module';
 
 @NgModule({
   declarations: [
@@ -66,13 +67,14 @@ import { ToastrModule } from 'ngx-toastr';
     NgxSpinnerModule
   ],
   providers: [
+    ToEditGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
     },
     NgbModal,
-    
+
   ],
   bootstrap: [AppComponent]
 

@@ -1,43 +1,33 @@
 <div *ngIf="article" class="article my-4">
     <div class="author-info d-flex justify-content-between px-3 py-2">
-      <div class="d-flex">
-        <img class="avatar mr-3" [src]="article?.author?.image"  (click)="showProfileAuthor(article?.author?.username)"/>
-        <span>
+        <div class="d-flex">
+            <img class="avatar mr-3" [src]="article?.author?.image" (click)="showProfileAuthor(article?.author?.username)" />
+            <span>
           <p class="author-name text-white mb-0" (click)="showProfileAuthor(article?.author?.username)">
             {{article?.author?.username}}
           </p>
           <p class="text-white" style="font-size: 14px;opacity: 0.85;">{{article?.createdAt | date : 'longDate'}}</p>
         </span>
-      </div>
+        </div>
     </div>
     <div class="article-info px-3 pt-2" (click)="showArticleDetail(article.slug)">
-      <h4 class="title mb-1">{{article?.title}}</h4>
-      <p class="text-secondary description">{{article?.description}}</p>
-      <div class="d-flex justify-content-between align-items-end mt-4">
-        <ul class="pb-0 pl-0 mb-0">
-          <li *ngFor="let tag of article?.tagList">
-            <span class="tag">#{{tag}}</span>
-          </li>
-        </ul>
-        <button class="article-detail btn btn-primary">Read more ...</button>
-      </div>
+        <h4 class="title mb-1">{{article?.title}}</h4>
+        <p class="text-secondary description">{{article?.description}}</p>
+        <div class="d-flex justify-content-between align-items-end mt-4">
+            <ul class="pb-0 pl-0 mb-0">
+                <li *ngFor="let tag of article?.tagList">
+                    <span class="tag">#{{tag}}</span>
+                </li>
+            </ul>
+            <button class="article-detail btn btn-primary">Read more ...</button>
+        </div>
     </div>
     <div class="article-like px-3 pt-0 pb-3 ">
-      <hr>
-      <button
-        type="button"
-        class="btn btn-success"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="Like"
-        [ngClass]="{'likedArt': !statusFavorited}"
-        style="height: 35px;"
-        (click)="toggleLikeArticle(article.favoritesCount)"
-      >
+        <hr>
+        <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Like" [ngClass]="{'likedArt': !statusFavorited}" style="height: 35px;" (click)="toggleLikeArticle(article.favoritesCount)">
         <i class="far fa-thumbs-up mr-1"></i>
         <span>{{favoritesCount}}</span>
       </button>
     </div>
 
 </div>
-

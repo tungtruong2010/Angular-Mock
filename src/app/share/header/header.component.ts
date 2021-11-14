@@ -8,10 +8,18 @@ import { AuthService } from 'src/app/service/implement-services/auth.service';
 export class HeaderComponent implements OnInit {
   public isLoggin:boolean = false;
   public src:string = 'https://static.productionready.io/images/smiley-cyrus.jpg';
-  public account_name:string = '';
+  public account_name:any = '';
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    let token = localStorage.getItem("token");
+    let currentUserName = localStorage.getItem("currentUser");
+    if(token!=null || currentUserName!=null){
+      this.isLoggin = true;
+      console.log(currentUserName);
+
+      this.account_name = currentUserName;
+    }
     this.authService.settingStatus.subscribe((status:any)=>{
       this.isLoggin = status;
       this.account_name = '';
@@ -25,7 +33,6 @@ export class HeaderComponent implements OnInit {
       this.src = data.image;
     });
     this.authService.regisStatus.subscribe((data:any)=>{
-      console.log('init header regis');
 
       this.isLoggin = this.authService.isLoggedIn();
       this.account_name = data.username;

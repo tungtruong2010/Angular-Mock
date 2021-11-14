@@ -6,8 +6,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home/home.component';
 import { SettingComponent } from './auth/setting/setting.component';
-
-
+import { ToEditGuard } from './guards/to-edit.guard';
 
 
 //Nam
@@ -32,12 +31,15 @@ import { CreateArticleComponent } from './editor-article/create-article/create-a
 
 
 const routes: Routes = [
+  {path: '', redirectTo: 'global', pathMatch: 'full'},
+
   {
     path: '',
     component: HomeComponent
   },
   {
     path: 'profile/setting',
+    canActivate: [ToEditGuard],
     component: SettingComponent
   },
   {
@@ -51,6 +53,7 @@ const routes: Routes = [
   },
   {
     path: 'editor',
+    canActivate: [ToEditGuard],
     component: CreateArticleComponent
   },
   {
