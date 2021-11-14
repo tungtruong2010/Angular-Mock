@@ -22,12 +22,14 @@ export class HeaderComponent implements OnInit {
 
       this.isLoggin = this.authService.isLoggedIn();
       this.account_name = data.username;
+      this.src = data.image;
     });
     this.authService.regisStatus.subscribe((data:any)=>{
       console.log('init header regis');
 
       this.isLoggin = this.authService.isLoggedIn();
       this.account_name = data.username;
+      this.src = data.image;
     });
   }
 }

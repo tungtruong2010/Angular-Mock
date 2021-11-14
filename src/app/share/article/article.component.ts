@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Article } from 'src/app/model/Article';
+import { ArticleService } from 'src/app/service/article-services/article.service';
 import { AuthService } from 'src/app/service/implement-services/auth.service';
-import { ProfileService } from 'src/app/service/profile-services/profile.service';
 
 @Component({
   selector: 'app-article',
@@ -14,9 +14,10 @@ export class ArticleComponent implements OnInit {
   @Input() article?:Article ;
   public favoritesCount:number | any = 0;
   public statusLikeArticle:boolean = false;
+  public statusFavorited?:boolean;
   constructor(
     private _router:Router,
-    private profileService:ProfileService,
+    private articleService:ArticleService,
     private authService:AuthService,
     private toastr: ToastrService
   ) {
@@ -24,6 +25,7 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit(): void {
     this.favoritesCount = this.article?.favoritesCount;
+    this.statusFavorited = this.article?.favorited;
   }
 
   public showArticleDetail(slug:string):void {
@@ -42,9 +44,10 @@ export class ArticleComponent implements OnInit {
     if(!this.statusLikeArticle){
       // this.favoritesCount += 1;
       this.statusLikeArticle = true;
-      this.profileService.likeArticle(this.article?.slug).subscribe(
+      this.articleService.likeArticle(this.article?.slug).subscribe(
         res => {
           // console.log("like article", res);
+          this.statusFavorited = true;
           this.favoritesCount = res?.article.favoritesCount
         },
         err => {
@@ -54,9 +57,10 @@ export class ArticleComponent implements OnInit {
     } else {
       // this.favoritesCount -= 1;
       this.statusLikeArticle = false;
-      this.profileService.unlikeArticle(this.article?.slug).subscribe(
+      this.articleService.unlikeArticle(this.article?.slug).subscribe(
         res => {
           // console.log("unlike article", res);
+          this.statusFavorited = false;
           this.favoritesCount = res?.article.favoritesCount
         },
         err => {

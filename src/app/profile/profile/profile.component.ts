@@ -3,8 +3,7 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Article } from 'src/app/model/Article';
 import { AuthService } from 'src/app/service/implement-services/auth.service';
-import { ProfileService } from 'src/app/service/profile-services/profile.service';
-
+import { UserService } from 'src/app/service/user-services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +17,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private route:ActivatedRoute,
-    private profileService:ProfileService,
+    private userService:UserService,
     private _router:Router,
     private authService:AuthService,
     private toastr:ToastrService
@@ -29,7 +28,7 @@ export class ProfileComponent implements OnInit {
     this.route.paramMap.subscribe(
       params => {
         const userInfo = params.get('userName');
-        this.profileService.getProfileUser(userInfo).subscribe(
+        this.userService.getProfileUser(userInfo).subscribe(
           res => {
             this.userAccount = res;
           },
@@ -45,7 +44,7 @@ export class ProfileComponent implements OnInit {
     if(!this.authService.loggedIn){
       return;
     }else {
-      this.profileService.getCurrentUser().subscribe(
+      this.userService.getCurrentUser().subscribe(
         res => {
           this.currentUserName = res?.user?.username;
         },
@@ -67,7 +66,7 @@ export class ProfileComponent implements OnInit {
     }
     // loggined => toggle follow button
     if(!this.isFollow){
-      this.profileService.followUser(this.userAccount?.profile?.username).subscribe(
+      this.userService.followUser(this.userAccount?.profile?.username).subscribe(
         res => {
           this.isFollow = res.profile.following;
           this.toastr.success('Follow user success !')
@@ -77,7 +76,7 @@ export class ProfileComponent implements OnInit {
         }
       )
     }else {
-      this.profileService.unFollowUser(this.userAccount?.profile?.username).subscribe(
+      this.userService.unFollowUser(this.userAccount?.profile?.username).subscribe(
         res => {
           this.isFollow = res.profile.following;
           this.toastr.success('Unfollow user success !')

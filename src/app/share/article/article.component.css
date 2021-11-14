@@ -42,3 +42,8 @@ ul li .tag {
   color: white;
   background-color: #055699;
 }
+.likedArt {
+  color: #56ab2f;
+  background-color: transparent!important;
+  border-color: #56ab2f;
+}

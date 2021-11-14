@@ -1,5 +1,5 @@
 <div class="my-articles" *ngIf="listFavoritedArticles.length > 0; else noFavoritedArticles">
-  <ng-container *ngFor="let article of listFavoritedArticles" >
+  <ng-container *ngFor="let article of listFavoritedArticles">
     <app-article  [article]="article"></app-article>
   </ng-container>
   <app-pagination
