@@ -1,5 +1,5 @@
 <div class="container setting">
-    <h1>Your Setting</h1>
+    <h3>Your Setting</h3>
     <form [formGroup]="settingForm">
         <div class="form-group avatarContainer">
             <img class="avatar" [src]="closeResult" alt="avatar">
@@ -33,7 +33,7 @@
             </ul>
         </div>
         <div class="form-group">
-            <label>Do you want to change your password? </label>
+            <label>Do you want to change your password? </label>&nbsp;
             <input (click)="wantChangePass()" type="checkbox">
         </div>
 
@@ -88,7 +88,7 @@
 
     <div class="d-flex justify-content-between">
         <button class="btn btn-danger" (click)="logOut()">Log out</button>
-        <button class="btn btn-success" (click)="updateUser()">Update User</button>
+        <button class="btn btn-success btnUpdate" (click)="updateUser()">Update User</button>
     </div>
 </div>
 
@@ -114,3 +114,11 @@
         <button type="button" class="btn btn-outline-dark" (click)="modal.close(inputValue)">Save</button>
     </div>
 </ng-template>
+
+<div *ngIf="showSpinner" id="overlay">
+    <div class="text-center text-success d-block">
+        <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
