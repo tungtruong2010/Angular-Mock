@@ -107,17 +107,17 @@ export class SettingComponent implements OnInit {
     }
     console.log(user);
 
-    // this.authService.updateUser(user).subscribe(
-    //   (data:any)=>{
-    //     console.log(data);
-    //     this.route.navigate(['/']);
+    this.authService.updateUser(user).subscribe(
+      (data:any)=>{
+        console.log(data);
+        this.route.navigate(['/']);
 
-    //   },
-    //   (err) =>{
-    //     console.log(err);
+      },
+      (err) =>{
+        console.log(err);
 
-    //   }
-    // )
+      }
+    )
 
 
   }
