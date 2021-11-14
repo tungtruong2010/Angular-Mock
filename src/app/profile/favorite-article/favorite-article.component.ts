@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProfileService } from 'src/app/service/profile-services/profile.service';
+import { ArticleService } from 'src/app/service/article-services/article.service';
 
 @Component({
   selector: 'app-favorite-article',
@@ -9,19 +9,24 @@ import { ProfileService } from 'src/app/service/profile-services/profile.service
 })
 export class FavoriteArticleComponent implements OnInit {
   public listFavoritedArticles:Array<any> = [];
-  public limitNumber:number = 5;
   public articlesCount:number = 0;
-  constructor(private route:ActivatedRoute, private profileService:ProfileService) {
+  public limitNumber:number = 0;
+  constructor(
+    private route:ActivatedRoute,
+    private articleService:ArticleService
+  ) {
+    this.limitNumber = this.articleService.limitNumber;
   }
 
   ngOnInit(): void {
     this.route?.parent?.params.subscribe(
       params => {
         const userInfo = params.userName;
-        this.profileService.userName = userInfo;
-        this.profileService.getFavoritedArticles(0, this.limitNumber).subscribe(
+        this.articleService.userName = userInfo;
+        this.articleService.getFavoritedArticles(0).subscribe(
           res => {
             this.listFavoritedArticles = res.articles;
+
             this.articlesCount = res.articlesCount;
           },
           err => console.log(err)
@@ -32,7 +37,7 @@ export class FavoriteArticleComponent implements OnInit {
   }
 
   public handleSelectPage(pageNumber:number):void {
-    this.profileService.getFavoritedArticles((pageNumber - 1) * this.limitNumber, this.limitNumber).subscribe(
+    this.articleService.getFavoritedArticles((pageNumber - 1) * this.articleService.limitNumber).subscribe(
       res => {
         this.listFavoritedArticles = res.articles;
       }

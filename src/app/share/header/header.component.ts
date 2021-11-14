@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/implement-services/auth.service';
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,7 +7,7 @@ import { AuthService } from 'src/app/service/implement-services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   public isLoggin:boolean = false;
-  public src:string = 'https://picsum.photos/id/237/200/300';
+  public src:string = 'https://static.productionready.io/images/smiley-cyrus.jpg';
   public account_name:string = '';
   constructor(private authService: AuthService) { }
 
@@ -23,13 +22,14 @@ export class HeaderComponent implements OnInit {
 
       this.isLoggin = this.authService.isLoggedIn();
       this.account_name = data.username;
+      this.src = data.image;
     });
     this.authService.regisStatus.subscribe((data:any)=>{
       console.log('init header regis');
 
       this.isLoggin = this.authService.isLoggedIn();
       this.account_name = data.username;
+      this.src = data.image;
     });
   }
-
 }

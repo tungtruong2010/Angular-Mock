@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 
 import { EditorArticleModule } from './editor-article/editor-article.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 import { AuthModule } from './auth/auth.module';
@@ -22,8 +22,8 @@ import { HeaderComponent } from './share/header/header.component';
 import { FooterComponent } from './share/footer/footer.component';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { TagInputModule } from 'ngx-chips';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -45,8 +45,15 @@ import { NgxSpinnerModule } from "ngx-spinner";
     //Nam
     ShareModule,
     HttpClientModule,
-
-
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(
+      {
+        timeOut:1500,
+        progressBar:true,
+        progressAnimation:'increasing',
+        preventDuplicates:true
+      }
+    ),
 
 
 
