@@ -1,4 +1,4 @@
-<nav aria-label="Page navigation example text-success" *ngIf="totalItems > 0">
+<nav aria-label="Page navigation example text-success" *ngIf="totalItems > limitNumber ">
   <ul class="pagination">
     <li class="page-item"><button class="page-link" [disabled]= "currentPage === 1" (click)= "handleSelectPage(currentPage - 1)">Previous</button></li>
     <li

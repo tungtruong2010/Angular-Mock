@@ -36,7 +36,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'setting',
+    path: 'profile/setting',
     component: SettingComponent
   },
   {
@@ -62,10 +62,11 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'api/profile/:userName',
+    path: 'profile/:userName',
     loadChildren: () => import('./profile/profile.module').then(
       m => m.ProfileModule
-    )
+    ),
+
   }
 
 ];

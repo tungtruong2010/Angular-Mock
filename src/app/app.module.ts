@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 
 import { EditorArticleModule } from './editor-article/editor-article.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 import { AuthModule } from './auth/auth.module';
@@ -20,6 +20,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { HomeModule } from './home/home.module';
 import { HeaderComponent } from './share/header/header.component';
 import { FooterComponent } from './share/footer/footer.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -41,8 +42,15 @@ import { FooterComponent } from './share/footer/footer.component';
     //Nam
     ShareModule,
     HttpClientModule,
-
-
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(
+      {
+        timeOut:1500,
+        progressBar:true,
+        progressAnimation:'increasing',
+        preventDuplicates:true
+      }
+    ),
 
 
 
