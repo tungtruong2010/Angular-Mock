@@ -7,6 +7,7 @@ export class AuthService {
   public loggedIn:boolean = false;
   public user:any = {};
   private token = '';
+  private currentUser:any = '';
   public loginStatus: EventEmitter<any>;
   public regisStatus: EventEmitter<any>;
   public settingStatus: EventEmitter<any>;
@@ -16,9 +17,11 @@ export class AuthService {
     this.regisStatus = new EventEmitter();
     this.settingStatus = new EventEmitter();
     let token = localStorage.getItem("token");
+    let currentUserName = localStorage.getItem("currentUser");
     if(token){
       this.loggedIn = true;
       this.token = token;
+      this.currentUser = currentUserName;
     }
   }
   register(body: any){
@@ -55,8 +58,8 @@ export class AuthService {
   getArticlesPerPage(offsetNum: number){
     return this.http.get('http://localhost:3000/api/articles?limit=5&offset='+offsetNum);
   }
-  getArticlesbyUser(userName:any){
-    return this.http.get('http://localhost:3000/api/articles/?author='+userName)
+  getArticlesFeed(){
+    return this.http.get('http://localhost:3000/api/articles/feed')
   }
   getArticlesbyTag(tagName:string){
     return this.http.get('http://localhost:3000/api/articles/?tag='+tagName)

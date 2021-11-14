@@ -7,11 +7,14 @@
 
     </div>
     <div class="col-2">
-        <div class="">
+        <div>
             <p>Popular Tags</p>
-            <ng-container *ngFor="let tag of tagArray">
-                <p routerLink="/{{naviName}}/{{tag}}" routerLinkActive="tagNameActive" (click)="renderByTag(tag)">#{{tag}}</p>
-            </ng-container>
+            <div class="d-flex flex-wrap tags">
+                <ng-container *ngFor="let tag of tagArray">
+                    <span routerLink="/{{naviName}}/{{tag}}" routerLinkActive="tagNameActive" (click)="renderByTag(tag)">#{{tag}}</span>&nbsp;&nbsp;
+                </ng-container>
+            </div>
+
 
 
         </div>

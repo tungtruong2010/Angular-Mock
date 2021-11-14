@@ -1,17 +1,18 @@
 .avatar {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     cursor: pointer;
 }
 
 .author-name {
     cursor: pointer;
+    font-size: 19px;
+    font-weight: 500;
 }
 
 .author-name:hover {
-    text-decoration: underline green solid 2px;
-    font-weight: 450;
+    text-decoration: underline white solid 2px;
 }
 
 ul li {
@@ -27,6 +28,16 @@ ul li .tag {
     color: #666161;
 }
 
+.article {
+    box-shadow: 0.5px 0.5px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+
+.author-info {
+    background-image: linear-gradient(to right, #56ab2f, #a8e063);
+    border-radius: 5px 5px 0 0;
+}
+
 .article-info {
     cursor: pointer;
 }
@@ -36,5 +47,12 @@ ul li .tag {
 }
 
 .article-detail {
-    color: #d6d1d1;
+    color: white;
+    background-color: #055699;
+}
+
+.likedArt {
+    color: #56ab2f;
+    background-color: transparent!important;
+    border-color: #56ab2f;
 }

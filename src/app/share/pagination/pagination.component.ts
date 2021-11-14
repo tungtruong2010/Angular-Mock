@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 })
 export class PaginationComponent implements OnInit, OnChanges {
   @Input() totalItems:number = 0;
-  @Input() limitNumber:number = 10;
+  @Input() limitNumber:number = 0;
   @Output() selectPage = new EventEmitter();
   public listPage:Array<number> = [];
   public currentPage:number = 1;

@@ -1,11 +1,17 @@
 .header {
   padding: 2rem 0;
-
+  background-color: #F1F6F5;
+}
+.profile {
+  margin-bottom: 6rem;
 }
 .avatar-big {
   width: 120px;
   height: 120px;
   border-radius: 50%;
+}
+.nav-link {
+  font-size: 18px;
 }
 .nav-link.active {
   color: green!important;

@@ -75,3 +75,9 @@ img {
     font-size: 15px;
     font-weight: bold;
 }
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+}

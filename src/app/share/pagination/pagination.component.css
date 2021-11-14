@@ -1,6 +1,9 @@
 .page-link {
   color: #40ad40;
 }
+.page-item {
+  cursor: pointer;
+}
 .page-item.active .page-link  {
   background-color: #40ad40;
   border-color: #40ad40;

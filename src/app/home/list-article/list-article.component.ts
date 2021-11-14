@@ -24,12 +24,16 @@ export class ListArticleComponent implements OnInit {
 
     if(this.route.url.split('/')[1] =='yourfeed'){
 
-      this.authService.getArticlesbyUser(currentUser).subscribe((data:any)=>{
+      this.authService.getArticlesFeed().subscribe((data:any)=>{
 
         this.articleArray = data.articles;
+        this.totalArticle = data.articlesCount;
+
+
+      })
+    }else{
+      this.authService.getArticles().subscribe((data:any)=>{
         this.totalArticle = data.articles.length;
-
-
       })
     }
     console.log(this.route.url.split('/')[2]);
@@ -45,12 +49,6 @@ export class ListArticleComponent implements OnInit {
 
       })
     }
-
-    this.authService.getArticles().subscribe((data:any)=>{
-      this.totalArticle = data.articles.length;
-    })
-
-
     this.authService.getTags().subscribe((data:any)=>{
       this.tagArray = data.tags;
     })

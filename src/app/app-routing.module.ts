@@ -20,8 +20,9 @@ import { ProfileModule } from './profile/profile.module';
 
 
 //Tùng
-import { CreateArticleComponent } from './editor-article/create-article/create-article.component';
 import { ManageArticleComponent } from './editor-article/manage-article/manage-article.component';
+import { CreateArticleComponent } from './editor-article/create-article/create-article.component';
+
 
 
 
@@ -37,7 +38,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'setting',
+    path: 'profile/setting',
     canActivate: [ToEditGuard],
     component: SettingComponent
   },
@@ -60,17 +61,16 @@ const routes: Routes = [
     children:[
       {
         path:':slug',
-        canActivate: [ToEditGuard],
         component: ManageArticleComponent
       }
     ]
   },
   {
-    path: 'api/profile/:userName',
-    canActivate: [ToEditGuard],
+    path: 'profile/:userName',
     loadChildren: () => import('./profile/profile.module').then(
       m => m.ProfileModule
-    )
+    ),
+
   }
 
 ];
