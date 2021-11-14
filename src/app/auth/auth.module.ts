@@ -6,6 +6,9 @@ import { AuthService } from '../service/implement-services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SettingComponent } from './setting/setting.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { ToastsContainer } from './toasts-container.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -13,13 +16,15 @@ import { SettingComponent } from './setting/setting.component';
   declarations: [
     LoginComponent,
     RegisterComponent,
-    SettingComponent
+    SettingComponent,
+    ToastsContainer
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [AuthService]
 })

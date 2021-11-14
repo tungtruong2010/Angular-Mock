@@ -2,3 +2,79 @@
     padding-left: 100px;
     padding-right: 100px;
 }
+
+label {
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+input {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.08rem rgb(0 123 255 / 25%);
+}
+
+input.ng-dirty.ng-invalid {
+    border: red 2px solid;
+}
+
+ul {
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+li {
+    list-style: none;
+    text-align: left;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    color: red;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.signUp {
+    text-align: center;
+}
+
+span {
+    font-size: 16px;
+    color: red;
+}
+
+.inputPass {
+    position: relative;
+}
+
+svg {
+    z-index: 20;
+    right: 10px;
+    position: absolute;
+    top: 50%;
+    height: 100px;
+    margin-top: -50px;
+}
+
+.avatarContainer {
+    position: relative;
+    text-align: center;
+}
+
+.avatar {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+
+.avatarIcon {
+    all: unset;
+}

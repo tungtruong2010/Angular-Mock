@@ -2,37 +2,22 @@
     <div class="row">
         <div class="col-10">
             <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-                <li *ngIf="showYourFeed" ngbNavItem [ngbNavItem]="1">
+                <li (click)="setNavName()" *ngIf="showYourFeed" [ngbNavItem]="1" routerLink="./yourfeed">
                     <a ngbNavLink>Your Feed</a>
-                    <ng-template ngbNavContent>
-                        <ng-container *ngFor="let article of articleArray">
-                            <app-article [article]="article"></app-article>
-                        </ng-container>
-                        <app-pagination [totalItems]="totalArticle" [limitNumber]="5" (selectPage)="handlePagination($event)"></app-pagination>
-                    </ng-template>
+
                 </li>
-                <li ngbNavItem [ngbNavItem]="2">
+                <li (click)="setNavName()" [ngbNavItem]="2" routerLink="./global" name="global">
                     <a ngbNavLink>Global Feed</a>
-                    <ng-template ngbNavContent>
-                        <ng-container *ngFor="let article of articleArray">
-                            <app-article [article]="article"></app-article>
-                        </ng-container>
-                        <app-pagination [totalItems]="totalArticle" [limitNumber]="5" (selectPage)="handlePagination($event)"></app-pagination>
 
-
-                    </ng-template>
                 </li>
             </ul>
+            <div [ngbNavOutlet]="nav" class="mt-2">
+            </div>
 
-            <div [ngbNavOutlet]="nav" class="mt-2"></div>
         </div>
         <div class="col-2">
-            <div class="">
-                <p>Popular Tags</p>
-                <ng-container *ngFor="let tag of tagArray">
-                    <p><b>#{{tag}}</b></p>
-                </ng-container>
-            </div>
+
         </div>
     </div>
+    <router-outlet></router-outlet>
 </div>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/implement-services/auth.service';
+import { ToastService } from 'src/app/service/implement-services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,14 @@ import { AuthService } from 'src/app/service/implement-services/auth.service';
 })
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
-  constructor(private route: Router, private authService: AuthService) {
+  public confirmPass = false;
+  public showPass = true;
+  public showCPass = true;
+  public showSpinner = false;
+
+  constructor(private route: Router,
+    public toastService: ToastService,
+    private authService: AuthService) {
     this.registerForm= new FormGroup({});
     this.registerForm.addControl('name', new FormControl(
       null,[Validators.required]
@@ -21,20 +29,71 @@ export class RegisterComponent implements OnInit {
     this.registerForm.addControl('pass', new FormControl(
       null,[Validators.required]
     ));
+    this.registerForm.addControl('cpass', new FormControl(
+      null,[Validators.required]
+    ));
   }
 
   ngOnInit(): void {
   }
-  register(){
-    let user =  {
+  showStandard() {
+    this.toastService.show('I am a standard toast');
+  }
+
+  showSuccess() {
+    this.toastService.show('I am a success toast', { classname: 'bg-success text-light', delay: 10000 });
+  }
+
+  showDanger(dangerTpl:any) {
+  }
+  toggleShowPass(){
+    this.showPass = !this.showPass;
+  }
+  toggleShowCPass(){
+    this.showCPass = !this.showCPass;
+  }
+  checkConfirmPass(){
+    let password = this.registerForm.get('pass')?.value;
+    let cPassword = this.registerForm.get('cpass')?.value;
+
+    if(password != cPassword){
+
+    }else{
+      this.confirmPass = false;
+
+    }
+  }
+
+  register(dangerTpl:any){
+
+
+    let password = this.registerForm.get('pass')?.value;
+    let cPassword = this.registerForm.get('cpass')?.value;
+    let name = this.registerForm.controls['name'];
+
+    Object.keys( this.registerForm.controls).forEach((formCTName)=>{
+      if(this.registerForm.get(formCTName)?.value== null){
+        this.registerForm.get(formCTName)?.markAsDirty();
+      }
+
+    });
+
+    if(password != cPassword){
+
+      this.confirmPass = true;
+    }else{
+      this.confirmPass = false;
+
+    }
+    if(this.registerForm.valid){
+      let user =  {
         "user":{
           "username": (this.registerForm.value.name).toString(),
           "email": (this.registerForm.value.email).toString(),
           "password": (this.registerForm.value.pass).toString(),
         }
     }
-    console.log(user);
-
+    this.showSpinner = true;
     this.authService.register(user).subscribe(
       (data:any)=>{
         console.log(data.user);
@@ -44,9 +103,12 @@ export class RegisterComponent implements OnInit {
         this.authService.regisStatus.emit(data.user);
       },
       (err) =>{
-        alert('entity already exists');
+        this.toastService.show(dangerTpl, { classname: 'bg-danger text-light', delay: 8000 });
+
       }
     )
+    }
+
   }
   routeToLogin(){
     this.route.navigate(['/login']);

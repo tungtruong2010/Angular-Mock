@@ -19,7 +19,9 @@ export class PaginationComponent implements OnInit, OnChanges {
     }
   }
   ngOnInit(): void {
+
   }
+
 
   public handleSelectPage(pageNumber:number):void {
     this.selectPage.emit(pageNumber)

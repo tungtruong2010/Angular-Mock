@@ -30,6 +30,8 @@ import { ManageArticleComponent } from './editor-article/manage-article/manage-a
 
 
 const routes: Routes = [
+  {path: '', redirectTo: 'global', pathMatch: 'full'},
+
   {
     path: '',
     component: HomeComponent

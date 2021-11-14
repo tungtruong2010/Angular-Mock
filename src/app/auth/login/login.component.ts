@@ -10,7 +10,8 @@ import { EditorArticleService } from 'src/app/service/implement-services/editor-
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  public showSpinner = false;
+  public showPass = true;
   public loginForm: FormGroup;
   constructor(private route: Router , private  authService: AuthService) {
     this.loginForm= new FormGroup({});
@@ -25,25 +26,41 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  login(){
-    let user =  {
-      "user":{
-        "email": this.loginForm.value.email,
-        "password": this.loginForm.value.pass
-      }
+  toggleShowPass(){
+    this.showPass = !this.showPass;
   }
+  login(){
 
-  this.authService.login(user).subscribe(
-    (data:any)=>{
-      console.log(data);
-      this.authService.logUserIn(data.user);
-      this.route.navigate(['/']);
-      this.authService.loginStatus.emit(data.user);
-    },
-    (err) =>{
-      alert('user name or password failed')
+    Object.keys(this.loginForm.controls).forEach((formCTName)=>{
+      console.log(this.loginForm.get(formCTName));
+
+      if(this.loginForm.get(formCTName)?.value == null){
+
+        this.loginForm.get(formCTName)?.markAsDirty();
+      }
+
+    });
+
+    if(this.loginForm.valid){
+      let user =  {
+        "user":{
+          "email": this.loginForm.value.email,
+          "password": this.loginForm.value.pass
+        }
+      }
+    this.showSpinner = true;
+    this.authService.login(user).subscribe(
+      (data:any)=>{
+        console.log(data);
+        this.authService.logUserIn(data.user);
+        this.route.navigate(['/']);
+        this.authService.loginStatus.emit(data.user);
+      },
+      (err) =>{
+        alert('user name or password failed')
+      }
+    )
     }
-  )
 
   }
   routeToRegister(){

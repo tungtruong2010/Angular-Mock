@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-10">
+        <ng-container *ngFor="let article of articleArray">
+            <app-article [article]="article"></app-article>
+        </ng-container>
+        <app-pagination [totalItems]="totalArticle" [limitNumber]="5" (selectPage)="handlePagination($event)"></app-pagination>
+
+    </div>
+    <div class="col-2">
+        <div class="">
+            <p>Popular Tags</p>
+            <ng-container *ngFor="let tag of tagArray">
+                <p routerLink="/{{naviName}}/{{tag}}" routerLinkActive="tagNameActive" (click)="renderByTag(tag)">#{{tag}}</p>
+            </ng-container>
+
+
+        </div>
+    </div>
+</div>

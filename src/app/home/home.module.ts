@@ -8,19 +8,59 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArticleComponent } from '../share/article/article.component';
 import { ShareModule } from '../share/share.module';
+import { ListArticleComponent } from './list-article/list-article.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ToEditGuard } from '../guards/to-edit.guard';
 
 
+const routes:Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    children:[
+      {
+        path: 'yourfeed',
+        canActivate: [ToEditGuard],
+        component: ListArticleComponent,
+      },
+      {
+        path: 'yourfeed',
+        canActivate: [ToEditGuard],
+        children:[
+          {
+            path: ':id',
+            component: ListArticleComponent
+          }
+        ]
+      },
+      {
+        path: 'global',
+        component: ListArticleComponent,
+      },
+      {
+        path: 'global',
+        children:[
+          {
+            path: ':id',
+            component: ListArticleComponent
+          }
+        ]
+      },
+    ]
+  }
 
+]
 @NgModule({
   declarations: [
     HomeComponent,
+    ListArticleComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     NgbModule,
-    ShareModule
-
+    ShareModule,
+    RouterModule.forChild(routes)
   ],
   providers: [NgbNavConfig],
   bootstrap:[HomeComponent]

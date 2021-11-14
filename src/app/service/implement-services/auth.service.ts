@@ -38,6 +38,7 @@ export class AuthService {
     this.user = user;
     this.token = user.token;
     localStorage.setItem("token", user.token);
+    localStorage.setItem("currentUser", user.username);
   }
   isLoggedIn(){
     return this.loggedIn;
@@ -53,6 +54,15 @@ export class AuthService {
   }
   getArticlesPerPage(offsetNum: number){
     return this.http.get('http://localhost:3000/api/articles?limit=5&offset='+offsetNum);
+  }
+  getArticlesbyUser(userName:any){
+    return this.http.get('http://localhost:3000/api/articles/?author='+userName)
+  }
+  getArticlesbyTag(tagName:string){
+    return this.http.get('http://localhost:3000/api/articles/?tag='+tagName)
+  }
+  getArticlesbyUserAndTag(userName:any,tagName:string){
+    return this.http.get('http://localhost:3000/api/articles/?author='+userName+'&tag='+tagName)
   }
   getTags(){
     return this.http.get('http://localhost:3000/api/tags');

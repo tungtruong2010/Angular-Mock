@@ -1,33 +1,94 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h2>Register</h2>
-            <form [formGroup]="registerForm" (ngSubmit)="register()">
-                <div class="form-group">
-                    <label for="exampleInputName1">User Name</label>
-                    <input [formControlName]="'name'" type="text" class="form-control" placeholder="Enter your name">
-                    <ul class="text-danger" *ngIf="registerForm.get('name')!.invalid&&registerForm.get('name')!.dirty">
-                        <li *ngIf="registerForm.get('name')!.hasError('required')">Name is required</li>
-                    </ul>
+<div class="container" id="container">
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button (click)="routeToLogin()" class="ghost" id="signUp">Sign in</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-container sign-in-container">
+        <form [formGroup]="registerForm">
+            <h1>Sign up</h1>
+            <div class="form-group">
+                <label for="exampleInputName1">User Name </label><span> (*)</span>
+                <input [formControlName]="'name'" type="text" class="form-control" placeholder="Enter your name">
+                <ul class="text-danger" *ngIf="registerForm.get('name')!.invalid&&registerForm.get('name')!.dirty">
+                    <li *ngIf="registerForm.get('name')!.hasError('required')">Name is required</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label><span> (*)</span>
+                <input [formControlName]="'email'" type="email" class="form-control" placeholder="Enter email">
+                <ul class="text-danger" *ngIf="registerForm.get('email')!.invalid&&registerForm.get('email')!.dirty">
+                    <li *ngIf="registerForm.get('email')!.hasError('required')">Email is required</li>
+                    <li *ngIf="registerForm.get('email')!.hasError('email')"> {{registerForm.get('email')?.value}} is not email format (@g...)</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label><span> (*)</span>
+                <div class="inputPass">
+                    <input [formControlName]="'pass'" [type]="showPass ? 'password' : 'text'" class="form-control" placeholder="Password">
+                    <ng-container *ngIf="showPass==true">
+                        <svg (click)="toggleShowPass()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                      </svg>
+
+                    </ng-container>
+                    <ng-container *ngIf="showPass==false">
+                        <svg (click)="toggleShowPass()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                      </svg>
+                    </ng-container>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input [formControlName]="'email'" type="email" class="form-control" placeholder="Enter email">
-                    <ul class="text-danger" *ngIf="registerForm.get('email')!.invalid&&registerForm.get('email')!.dirty">
-                        <li *ngIf="registerForm.get('email')!.hasError('required')">Email is required</li>
-                        <li *ngIf="registerForm.get('email')!.hasError('email')"> {{registerForm.get('email')?.value}} is not email format (@g...)</li>
-                    </ul>
+
+                <ul class="text-danger" *ngIf="registerForm.get('pass')!.invalid&&registerForm.get('pass')!.dirty">
+                    <li *ngIf="registerForm.get('pass')!.hasError('required')">Password is required</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword2">Confirm Password</label><span> (*)</span>
+                <div class="inputPass">
+                    <input [formControlName]="'cpass'" [type]="showCPass ? 'password' : 'text'" class="form-control" placeholder="Confirm password" (keyup)="checkConfirmPass()">
+                    <ng-container *ngIf="showCPass==true">
+                        <svg (click)="toggleShowCPass()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+
+                    </ng-container>
+                    <ng-container *ngIf="showCPass==false">
+                        <svg (click)="toggleShowCPass()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                      <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                      <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                    </svg>
+                    </ng-container>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input [formControlName]="'pass'" type="password" class="form-control" placeholder="Password">
-                    <ul class="text-danger" *ngIf="registerForm.get('pass')!.invalid&&registerForm.get('pass')!.dirty">
-                        <li *ngIf="registerForm.get('pass')!.hasError('required')">Password is required</li>
-                    </ul>
-                </div>
-                <p class="text-center text-muted mt-2 mb-0 ">Have already an account? <span (click)="routeToLogin()">Login here!</span></p>
-                <button class="btn btn-success">Register</button>
-            </form>
+                <ul class="text-danger" *ngIf="registerForm.get('cpass')!.invalid&&registerForm.get('cpass')!.dirty">
+                    <li *ngIf="registerForm.get('cpass')!.hasError('required')">Password is required</li>
+                </ul>
+                <li *ngIf="confirmPass">Password not match</li>
+
+            </div>
+            <ng-template #dangerTpl>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24"></svg> The account or password already exists
+            </ng-template>
+            <div class="signUp">
+                <button (click)="register(dangerTpl)">Sign up</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<div *ngIf="showSpinner" id="overlay">
+    <div class="text-center text-success d-block">
+        <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
 </div>
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

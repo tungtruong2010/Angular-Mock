@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 
 
 import { EditorArticleModule } from './editor-article/editor-article.module';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -41,7 +41,7 @@ import { ToEditGuard } from './guards/to-edit.guard';
 
     //Nam
     ShareModule,
-
+    HttpClientModule,
 
 
 

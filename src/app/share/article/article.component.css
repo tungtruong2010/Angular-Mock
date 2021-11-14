@@ -21,8 +21,10 @@ ul li {
 }
 
 ul li .tag {
+    border: 1px solid #666161;
+    border-radius: 15px;
     padding: 0 0.5rem;
-    color: blue;
+    color: #666161;
 }
 
 .article-info {
