@@ -10,78 +10,97 @@ import { AuthService } from 'src/app/service/implement-services/auth.service';
 export class ListArticleComponent implements OnInit {
   public articleArray:any = [];
   public totalArticle!:number;
-  public tagArray:any = [];
   public naviName!:string;
+  public tagArray:any = [];
 
   constructor(private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private route: Router) { }
 
   ngOnInit(): void {
+
     this.naviName = this.route.url.split('/')[1];
     let currentUser = localStorage.getItem("currentUser");
-    console.log('init');
 
-    if(this.route.url.split('/')[1] =='yourfeed'){
-
-      this.authService.getArticlesFeed().subscribe((data:any)=>{
-
-        this.articleArray = data.articles;
-        this.totalArticle = data.articlesCount;
-
-
-      })
-    }else{
-      this.authService.getArticles().subscribe((data:any)=>{
-        this.totalArticle = data.articles.length;
-      })
-    }
-    console.log(this.route.url.split('/')[2]);
-
-    if(this.route.url.split('/')[1] =='global'&&this.route.url.split('/')[2]==undefined){
-      this.authService.getArticlesPerPage(0).subscribe((data:any)=>{
-        this.articleArray = data.articles;
-      })
-    }else{
-      this.authService.getArticlesbyTag(this.route.url.split('/')[2]).subscribe((data:any)=>{
-        this.articleArray = data.articles;
-
-
-      })
-    }
     this.authService.getTags().subscribe((data:any)=>{
       this.tagArray = data.tags;
     })
+
+    if(this.route.url.split('/')[1] =='yourfeed'){
+      this.authService.sendTagName.emit('yourfeed');
+
+      this.authService.getArticlesFeed().subscribe((data:any)=>{
+        this.totalArticle = data.articles.length;
+      })
+      this.authService.getArticlesFeedPerPage(0).subscribe((data:any)=>{
+        this.articleArray = data.articles;
+      })
+    }
+    if(this.route.url.split('/')[1] =='global'){
+      this.authService.sendTagName.emit('global');
+
+      this.authService.getArticles().subscribe((data:any)=>{
+
+        this.totalArticle = data.articlesCount;
+      })
+      this.authService.getArticlesPerPage(0).subscribe((data:any)=>{
+        this.articleArray = data.articles;
+
+      })
+    }
+    if(this.route.url.split('/')[1] !='global'&&this.route.url.split('/')[1] !='global'){
+      this.authService.sendTagName.emit(this.route.url.split('/')[1]);
+
+      this.authService.getArticlesbyTag(this.route.url.split('/')[1]).subscribe((data:any)=>{
+        this.totalArticle = data.articlesCount;
+      })
+      this.authService.getArticlesbyTagPerPage(this.route.url.split('/')[1],0).subscribe((data:any)=>{
+        this.articleArray = data.articles;
+      })
+    }
   }
+  renderByTag(tagName:string){
+    let currentUser = localStorage.getItem("currentUser");
+    this.authService.sendTagName.emit(tagName);
 
-  handlePagination(value:number){
-    this.authService.getArticlesPerPage((value-1)*5).subscribe((data:any)=>{
+    this.authService.getArticlesbyTag(tagName).subscribe((data:any)=>{
+      this.totalArticle = data.articlesCount;
+    })
+    this.authService.getArticlesbyTagPerPage(tagName,0).subscribe((data:any)=>{
+      console.log('tag', data);
+
       this.articleArray = data.articles;
-
     })
 
   }
-  renderByTag(tagName:string){
-        let currentUser = localStorage.getItem("currentUser");
+  handlePagination(value:number){
+    if(this.route.url.split('/')[1] =='yourfeed'){
 
-        if(this.route.url.split('/')[1] =='yourfeed'){
-          this.authService.getArticlesbyUserAndTag(currentUser, tagName).subscribe((data:any)=>{
+      this.authService.getArticlesFeedPerPage((value - 1)*5).subscribe((data:any)=>{
 
-            this.articleArray = data.articles;
-            this.totalArticle = data.articles.length;
-
-          })
-
-        }
-        if(this.route.url.split('/')[1] =='global'){
-          console.log('tag glo');
-
-          this.authService.getArticlesbyTag(tagName).subscribe((data:any)=>{
-            this.articleArray = data.articles;
+        this.articleArray = data.articles;
 
 
-          })
-        }
+      })
+    }
+    if(this.route.url.split('/')[1] =='global'){
+
+      this.authService.getArticlesPerPage((value-1)*5).subscribe((data:any)=>{
+        this.articleArray = data.articles;
+
+      })
+    }
+    if(this.route.url.split('/')[1] !='global'&&this.route.url.split('/')[1] !='yourfeed'){
+      console.log('next');
+
+      this.authService.getArticlesbyTagPerPage(this.route.url.split('/')[1],(value-1)*5).subscribe((data:any)=>{
+        this.articleArray = data.articles;
+
+      })
+    }
+
+
   }
+
 
 }

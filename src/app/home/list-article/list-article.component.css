@@ -10,3 +10,22 @@ p {
 span:hover {
     cursor: pointer;
 }
+
+.taglist {
+    background-color: #f3f3f3;
+    padding: 20px;
+}
+
+.tagItem {
+    color: #fff !important;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    background-color: #818a91;
+    border-radius: 20px;
+    padding: 0.1rem 0.5rem;
+    margin-bottom: 5px;
+}
+
+.tagNameActive {
+    background-color: #FFB319;
+}
