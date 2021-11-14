@@ -95,6 +95,15 @@ input {
     width: 768px;
     max-width: 100%;
     min-height: 540px;
+    margin-top: 1rem;
+}
+
+.singUp {
+    margin-bottom: 4px;
+}
+
+.form-group {
+    margin-bottom: 4px;
 }
 
 .form-container {

@@ -65,7 +65,7 @@ export class AuthService {
     return this.http.get('http://localhost:3000/api/articles/?tag='+tagName)
   }
   getArticlesbyUserAndTag(userName:any,tagName:string){
-    return this.http.get('http://localhost:3000/api/articles/?author='+userName+'&tag='+tagName)
+    return this.http.get('http://localhost:3000/api/articles/?tag='+tagName)
   }
   getTags(){
     return this.http.get('http://localhost:3000/api/tags');
