@@ -1,126 +1,101 @@
-<div class="header_manage">
+<div class="main_editor">
+    <div class="header_manage">
+        <div class="container">
+
+            <div class="d-flex user_area first_area">
+                <img [src]="url" alt="Anh"> &nbsp;&nbsp;
+                <div>
+                    <p>{{article?.author.username | uppercase}}</p>
+                    <p>{{article?.createdAt | date}}</p>
+                </div>
+                &nbsp;&nbsp;
+                <ng-container *ngIf="article?.author.username==follow">
+                    <div class="button_area">
+                        <button class="btn btn-warning" (click)="editAr(article?.slug)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                            </svg>
+                            &nbsp;
+                            Edit Article
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteAr('autofocus',article?.slug)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                            &nbsp;
+                            Delete Article
+                        </button>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="article?.author.username!==follow">
+                    <div class="button_area">
+                        <button *ngIf="followingName==false" class="btn btn-warning" (click)="followName(article?.author.username)">
+                            <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                            &nbsp;
+                            Unfollowed
+                        </button>
+                        <button *ngIf="followingName==true" class="btn btn-warning" (click)="unfollowName(article?.author.username)">
+                            <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                            &nbsp;
+                            Followed
+                        </button>
+                        <button *ngIf="favorite==false" class="btn btn-danger" (click)="fav(article?.slug)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                              </svg>
+                            &nbsp;
+                            Favorite Article
+                        </button>
+                        <button *ngIf="favorite==true" class="btn btn-danger" (click)="unfav(article?.slug)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                            </svg>
+                            &nbsp;
+                            Loved Article
+                        </button>
+                    </div>
+                </ng-container>
+
+            </div>
+            <h1>{{article?.title}}</h1>
+        </div>
+    </div>
     <div class="container">
-        <h1>{{article?.title}}</h1>
-        <div class="d-flex user_area first_area">
-            <img [src]="url" alt="Anh"> &nbsp;&nbsp;
-            <div>
-                <p>{{article?.author.username | uppercase}}</p>
-                <p>{{article?.createdAt | date}}</p>
-            </div>
-            &nbsp;&nbsp;
-            <ng-container *ngIf="article?.author.following==false">
-                <div class="button_area">
-                    <button class="btn btn-warning" (click)="editAr(article?.slug)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                        </svg>
-                        &nbsp;
-                        Edit Article
-                    </button>
-                    <button class="btn btn-danger" (click)="deleteAr(article?.slug)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                        </svg>
-                        &nbsp;
-                        Delete Article
-                    </button>
+        <div class="content">
+            <div class="body">
+                <div class="inside_body" [innerHTML]='markdown'>
                 </div>
-            </ng-container>
-            <ng-container *ngIf="article?.author.following==true">
-                <div class="button_area">
-                    <button class="btn btn-warning">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                        </svg>
-                        &nbsp;
-                        Follow name
-                    </button>
-                    <button class="btn btn-danger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                        </svg>
-                        &nbsp;
-                        Favorite Article
-                    </button>
-                </div>
-            </ng-container>
 
-        </div>
-
-    </div>
-</div>
-<div class="container">
-    <p class="body">{{article?.body}}</p>
-
-    <p>
-        <ng-container *ngFor="let tag of article?.tagList">
-            <span># {{tag}}</span>
-        </ng-container>
-    </p>
-    <hr>
-    <div class="d-flex user_area">
-        <img [src]="url" alt="Anh"> &nbsp;&nbsp;
-        <div class="user">
-            <p>{{article?.author.username | uppercase}}</p>
-            <p>{{article?.updatedAt | date}}</p>
-        </div>
-        &nbsp;&nbsp;
-        <ng-container *ngIf="article?.author.following==false">
-            <div class="button_area">
-                <button class="btn btn-warning" (click)="editAr(article?.slug)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                    </svg>
-                    &nbsp;
-                    Edit Article
-                </button>
-                <button class="btn btn-danger" (click)="deleteAr(article?.slug)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                    </svg>
-                    &nbsp;
-                    Delete Article
-                </button>
+                <p>
+                    <ng-container *ngFor="let tag of article?.tagList">
+                        <span># {{tag}}</span>
+                    </ng-container>
+                </p>
             </div>
-        </ng-container>
-        <ng-container *ngIf="article?.author.following==true">
-            <div class="button_area">
-                <button class="btn btn-warning">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                    </svg>
-                    &nbsp;
-                    Follow name
-                </button>
-                <button class="btn btn-danger">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                    </svg>
-                    &nbsp;
-                    Favorite Article
-                </button>
-            </div>
-        </ng-container>
-    </div>
-    <textarea class="form-control" rows="6" placeholder="Write your comment..." [(ngModel)]="cmt"></textarea>
-    <div class="postcomt d-flex justify-content-between">
-        <img [src]="url" alt="anh">
-        <button class="btn btn-success" (click)="postCmt(article?.slug)">Post Comment</button>
-    </div>
-    <br>
-    <div class="cmt_area">
-        <textarea class="form-control" rows="2" disabled>aaaaaaaa</textarea>
+        </div>
+        <hr>
+        <textarea class="form-control" rows="2" placeholder="Write your comment..." [(ngModel)]="cmt"></textarea>
         <div class="postcomt d-flex justify-content-between">
-            <img src="" alt="anh">
-            <button class="btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            <img [src]="url" alt="anh">
+            <button class="btn btn-success" (click)="postCmt(article?.slug)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
                 </svg>
+                Post
             </button>
         </div>
+        <br>
+        <div class="cmt_area">
+            <app-comments [listCmt]="listCmt" (deletedList)="deleteList(article?.slug,$event)"></app-comments>
+
+
+        </div>
+        <br>
     </div>
-    <br>
 </div>

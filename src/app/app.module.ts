@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ShareModule } from './share/share.module';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +20,10 @@ import { AuthInterceptor } from './auth.interceptor';
 import { HomeModule } from './home/home.module';
 import { HeaderComponent } from './share/header/header.component';
 import { FooterComponent } from './share/footer/footer.component';
+import { LMarkdownEditorModule } from 'ngx-markdown-editor';
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -49,14 +53,19 @@ import { FooterComponent } from './share/footer/footer.component';
 
 
     //Tung
-    EditorArticleModule
+    EditorArticleModule,
+    TagInputModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    NgbModal,
+    
   ],
   bootstrap: [AppComponent]
 

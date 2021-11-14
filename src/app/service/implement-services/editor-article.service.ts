@@ -1,11 +1,11 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class EditorArticleService {
-  public editvalue=new ReplaySubject();
+  public editvalue=new BehaviorSubject('false');
   public deleteUpdated=new ReplaySubject();
   // public deleteUpdated: EventEmitter<any>;
   public token = localStorage.getItem('token');
@@ -24,7 +24,7 @@ export class EditorArticleService {
           "tagList": tagList,
       }
     }
-    console.log(this.token);
+    //console.log(this.token);
 
     return this.http.post('http://localhost:3000/api/articles',body)
   }
@@ -58,8 +58,22 @@ export class EditorArticleService {
     }
     return this.http.post(`http://localhost:3000/api/articles/${slug}/comments`,body)
   }
+  deleteCmt(slug:any,id:any){
+    return this.http.delete(`http://localhost:3000/api/articles/${slug}/comments/${id}`)
+  }
   getArticle(slug:any){
     return this.http.get(`http://localhost:3000/api/articles/${slug}`);
   }
-
+  follow(username:any){
+    return this.http.post(`http://localhost:3000/api/profiles/${username}/follow`,{});
+  }
+  unfollow(username:any){
+    return this.http.delete(`http://localhost:3000/api/profiles/${username}/follow`,{});
+  }
+  fav(slug:any){
+    return this.http.post(`http://localhost:3000/api/articles/${slug}/favorite`,{});
+  }
+  unfav(slug:any){
+    return this.http.delete(`http://localhost:3000/api/articles/${slug}/favorite`,{});
+  }
 }

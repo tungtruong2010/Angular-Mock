@@ -21,8 +21,9 @@ import { ProfileModule } from './profile/profile.module';
 
 
 //Tùng
-import { CreateArticleComponent } from './editor-article/create-article/create-article.component';
 import { ManageArticleComponent } from './editor-article/manage-article/manage-article.component';
+import { CreateArticleComponent } from './editor-article/create-article/create-article.component';
+
 
 
 

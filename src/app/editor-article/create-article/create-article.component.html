@@ -1,28 +1,47 @@
-<div class="container">
-    <form>
-        <input type="text" class="form-control form-control-lg" placeholder="Article Title" [ngModelOptions]="{standalone: true}" [(ngModel)]="title">
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="default" color="#6ebd49" type="pacman" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<br>
+<div class="container content_wrap">
+    <br>
+
+    <form [formGroup]='publish'>
+        <ng-template #tipContent> <em style=" background-color:white;color: rgb(255, 14, 14);">Required!</em></ng-template>
+        <label><b>Title </b><i placement="right" [ngbTooltip]="tipContent" style="color: rgb(255, 14, 14);">(*)</i></label>
         <br>
-        <input type="text" class="form-control" placeholder="What is the article about?" [ngModelOptions]="{standalone: true}" [(ngModel)]="maincontent">
+        <input type="text" class="form-control form-control-lg" placeholder="Article Title" [formControlName]="'title'">
+        <small *ngIf="publish.get('title')?.value==null&&showFault==true" class="text-danger">This field is required</small>
+        <small class="text-danger" *ngIf="publish.get('title')!.invalid && publish.get('title')!.dirty">
+            <span *ngIf="publish.get('title')!.hasError('required')">This field is required</span>
+        </small>
         <br>
-        <textarea class="form-control form-control-sm" rows="5" placeholder="Write your article (in markdown)" [ngModelOptions]="{standalone: true}" [(ngModel)]="markdown"></textarea>
+
+        <label><b>About </b><i placement="right" [ngbTooltip]="tipContent" style="color: rgb(255, 14, 14);">(*)</i></label>
         <br>
-        <input type="text" class="form-control form-control-sm" placeholder="Enter tag" (keyup.enter)="getTag(tag)" [ngModelOptions]="{standalone: true}" [(ngModel)]="tag">
+        <input type="text" class="form-control" placeholder="What is the article about?" [formControlName]="'maincontent'">
+        <small *ngIf="publish.get('maincontent')?.value==null&&showFault==true" class="text-danger">This field is required</small>
+        <small class="text-danger" *ngIf="publish.get('maincontent')!.invalid && publish.get('maincontent')!.dirty">
+            <span *ngIf="publish.get('maincontent')!.hasError('required')">This field is required</span>
+        </small>
+        <br>
+        <label><b>Write your content </b><i style="font-size:10px">(Optional)</i></label>
+        <div>
+            <md-editor name="Content" [formControlName]="'content'" [options]="options" required maxlength="600" height="400px"></md-editor>
+            <br />
+        </div>
+        <br>
+        <label><b>Tags: </b><i style="font-size:10px">(Optional)</i></label>
+        <br>
+        <!-- <input type="text" class="form-control form-control-sm" placeholder="Input and enter tag" (keyup.enter)="getTag(tag)" [ngModelOptions]="{standalone: true}" [(ngModel)]="tag"> -->
+        <tag-input [formControlName]="'tagList'" (onTagEdited)="onTagEdited($event)" class="blue"></tag-input>
         <br>
     </form>
-    <ng-container *ngFor="let list of tagList">
-        <label>{{list}}
-            <button class="btn" (click)="deletetag(list)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-            </button>
-        </label> &nbsp;
-    </ng-container>
     <div class="d-flex justify-content-end" *ngIf="toggle==false">
-        <button class="btn btn-success" (click)="publishArticle(title,maincontent,markdown)">Publish Article</button>
+        <button class="btn btn-success" (click)="publishArticle()">Publish Article</button>
     </div>
     <div class="d-flex justify-content-end" *ngIf="toggle==true">
-        <button class="btn btn-success" (click)="update(title,maincontent,markdown)">Update Article</button>
+        <button class="btn btn-success" (click)="update()">Update Article</button>
     </div>
     <br>
 </div>
+<br>
