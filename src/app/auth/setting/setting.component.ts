@@ -10,6 +10,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class SettingComponent implements OnInit {
   public changePass = true;
+  public showSpinner = false;
   public confirmPass = false;
   public showPass = true;
   public showCPass = true;
@@ -107,6 +108,7 @@ export class SettingComponent implements OnInit {
     }
     console.log(user);
     this.authService.updateAvatarAdmin.emit(user?.user.image)
+    this.showSpinner = true;
     this.authService.updateUser(user).subscribe(
       (data:any)=>{
         console.log(data);
@@ -122,6 +124,7 @@ export class SettingComponent implements OnInit {
 
   }
   logOut(){
+    this.showSpinner = true;
     localStorage.removeItem("token");
     localStorage.removeItem("currentUser");
     this.authService.setToken('');

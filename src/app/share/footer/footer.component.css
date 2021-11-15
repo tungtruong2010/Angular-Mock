@@ -1,10 +1,10 @@
 .footer {
-    background-color: #93B5C6;
+    background-color: #343e4a;
     padding: 1rem 0;
     color: white;
-    /* position: fixed; */
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 10;
+    z-index: 1099999999;
 }

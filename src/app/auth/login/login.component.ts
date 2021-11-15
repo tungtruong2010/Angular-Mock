@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/implement-services/auth.service';
 import { EditorArticleService } from 'src/app/service/implement-services/editor-article.service';
+import { ToastService } from 'src/app/service/implement-services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   public showSpinner = false;
   public showPass = true;
   public loginForm: FormGroup;
-  constructor(private route: Router , private  authService: AuthService) {
+  constructor(private route: Router ,
+    public toastService: ToastService, private  authService: AuthService) {
     this.loginForm= new FormGroup({});
     this.loginForm.addControl('email', new FormControl(
       null,[Validators.required, Validators.email]
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
   toggleShowPass(){
     this.showPass = !this.showPass;
   }
-  login(){
+  login(dangerTpl2:any){
 
     Object.keys(this.loginForm.controls).forEach((formCTName)=>{
       console.log(this.loginForm.get(formCTName));
@@ -48,8 +50,10 @@ export class LoginComponent implements OnInit {
           "password": this.loginForm.value.pass
         }
       }
-    this.showSpinner = true;
+      this.showSpinner = true;
+
     this.authService.login(user).subscribe(
+
       (data:any)=>{
         console.log(data);
         this.authService.logUserIn(data.user);
@@ -57,6 +61,10 @@ export class LoginComponent implements OnInit {
         this.authService.loginStatus.emit(data.user);
       },
       (err) =>{
+        this.showSpinner = false;
+        alert('Email or password incorrect');
+
+
       }
     )
     }

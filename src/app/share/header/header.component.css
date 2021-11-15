@@ -1,25 +1,33 @@
 a {
-  cursor: pointer;
+    cursor: pointer;
 }
+
 .menu {
-  font-size: 1rem;
+    font-size: 1rem;
 }
+
 .avatar {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
 }
+
 .bg-nav {
-  background-color: #FFB319;
+    background-color: #FFB319;
 }
+
 .nav-item {
-  font-weight: 500;
-  font-size: 18.5px;
+    font-weight: 500;
+    font-size: 18.5px;
 }
+
 .nav-link.active {
   color:#678983!important;
+    color: #FFB740!important;
 }
+
 .nav-item.active .nav-link,
 .nav-item.active i {
   color: #678983!important;
 }
+

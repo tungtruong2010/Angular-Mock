@@ -62,6 +62,11 @@ export class RegisterComponent implements OnInit {
       this.confirmPass = false;
 
     }
+
+    if(cPassword.length < 0){
+      this.confirmPass = true;
+    }
+
   }
 
   register(dangerTpl:any){
@@ -77,7 +82,6 @@ export class RegisterComponent implements OnInit {
       }
 
     });
-
     if(password != cPassword){
 
       this.confirmPass = true;
@@ -85,7 +89,10 @@ export class RegisterComponent implements OnInit {
       this.confirmPass = false;
 
     }
-    if(this.registerForm.valid){
+    if(cPassword == null){
+      this.confirmPass = false;
+    }
+    if(this.registerForm.valid&&this.confirmPass==false){
       let user =  {
         "user":{
           "username": (this.registerForm.value.name).toString(),
@@ -103,6 +110,8 @@ export class RegisterComponent implements OnInit {
         this.authService.regisStatus.emit(data.user);
       },
       (err) =>{
+        this.showSpinner = false;
+
         this.toastService.show(dangerTpl, { classname: 'bg-danger text-light', delay: 8000 });
 
       }

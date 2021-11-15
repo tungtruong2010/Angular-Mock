@@ -12,12 +12,14 @@ export class AuthService {
   public regisStatus: EventEmitter<any>;
   public settingStatus: EventEmitter<any>;
   public updateAvatarAdmin:EventEmitter<any>
+  public sendTagName: EventEmitter<any>;
 
   constructor(private http: HttpClient) {
     this.loginStatus = new EventEmitter();
     this.regisStatus = new EventEmitter();
     this.settingStatus = new EventEmitter();
     this.updateAvatarAdmin = new EventEmitter()
+    this.sendTagName = new EventEmitter();
     let token = localStorage.getItem("token");
     let currentUserName = localStorage.getItem("currentUser");
     let avatarImg = localStorage.getItem("avatarImg")
@@ -63,13 +65,17 @@ export class AuthService {
     return this.http.get('http://localhost:3000/api/articles?limit=5&offset='+offsetNum);
   }
   getArticlesFeed(){
-    return this.http.get('http://localhost:3000/api/articles/feed')
+    return this.http.get('http://localhost:3000/api/articles/feed');
+  }
+  getArticlesFeedPerPage(offsetNum: number){
+    return this.http.get('http://localhost:3000/api/articles/feed?limit=5&offset='+offsetNum);
   }
   getArticlesbyTag(tagName:string){
     return this.http.get('http://localhost:3000/api/articles/?tag='+tagName)
   }
-  getArticlesbyUserAndTag(userName:any,tagName:string){
-    return this.http.get('http://localhost:3000/api/articles/?author='+userName+'&tag='+tagName)
+  getArticlesbyTagPerPage(tagName:string,offsetNum: number){
+    return this.http.get('http://localhost:3000/api/articles/?tag='+tagName+'&limit=5&offset='+offsetNum)
+                     //  'http://localhost:3000/api/articles/?tag=angular&limit=5&offset=5'
   }
   getTags(){
     return this.http.get('http://localhost:3000/api/tags');
