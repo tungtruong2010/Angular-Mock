@@ -1,6 +1,6 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_API } from 'src/app/common/baseApi';
 
@@ -8,7 +8,6 @@ import { BASE_API } from 'src/app/common/baseApi';
   providedIn: 'root'
 })
 export class UserService {
-
   constructor(private http:HttpClient) { }
 
   public getProfileUser(username:string | null):Observable<any> {
@@ -18,7 +17,7 @@ export class UserService {
   public getCurrentUser():Observable<any>{
     return this.http.get(`${BASE_API}/user`)
   }
-  
+
   public followUser(userName:string):Observable<any> {
     return this.http.post(`${BASE_API}/profiles/${userName}/follow`,{})
   }

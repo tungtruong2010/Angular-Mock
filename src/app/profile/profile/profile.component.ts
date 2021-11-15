@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +22,8 @@ export class ProfileComponent implements OnInit {
     private _router:Router,
     private authService:AuthService,
     private toastr:ToastrService
-  ){}
+  ){
+  }
 
   ngOnInit(): void {
     //get profile accunt by url params
@@ -87,5 +89,7 @@ export class ProfileComponent implements OnInit {
       )
     }
   }
+
+
 
 }

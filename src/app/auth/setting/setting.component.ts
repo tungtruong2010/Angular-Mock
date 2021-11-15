@@ -106,7 +106,7 @@ export class SettingComponent implements OnInit {
         }
     }
     console.log(user);
-
+    this.authService.updateAvatarAdmin.emit(user?.user.image)
     this.authService.updateUser(user).subscribe(
       (data:any)=>{
         console.log(data);

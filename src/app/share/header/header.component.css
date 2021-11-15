@@ -10,16 +10,16 @@ a {
   border-radius: 50%;
 }
 .bg-nav {
-  background-color: #6088BB;
+  background-color: #FFB319;
 }
 .nav-item {
   font-weight: 500;
   font-size: 18.5px;
 }
 .nav-link.active {
-  color:#FFB740!important;
+  color:#678983!important;
 }
 .nav-item.active .nav-link,
 .nav-item.active i {
-  color: #FFB740!important;
+  color: #678983!important;
 }

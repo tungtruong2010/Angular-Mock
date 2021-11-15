@@ -6,7 +6,7 @@
         <div class="menu">
             <ul *ngIf=" !isLoggin;else menuLoggin" class="navbar-nav flex-row text-muted">
                 <li class="nav-item mr-5">
-                    <a class="nav-link text-white" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                    <a class="nav-link text-white" routerLink="/global" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                 true}">Home</a>
                 </li>
                 <li class="nav-item mr-5">
@@ -19,7 +19,7 @@
             <ng-template #menuLoggin>
                 <ul class="navbar-nav flex-row text-muted">
                     <li class="nav-item mr-5">
-                        <a class="nav-link text-white" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        <a class="nav-link text-white" routerLink="/global" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                 true}">Home</a>
                     </li>
                     <li class="nav-item mr-5 d-flex align-items-center" routerLink="/editor" routerLinkActive="active">
