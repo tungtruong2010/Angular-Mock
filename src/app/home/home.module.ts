@@ -24,28 +24,13 @@ const routes:Routes = [
         component: ListArticleComponent,
       },
       {
-        path: 'yourfeed',
-        canActivate: [ToEditGuard],
-        children:[
-          {
-            path: ':id',
-            component: ListArticleComponent
-          }
-        ]
-      },
-      {
         path: 'global',
         component: ListArticleComponent,
       },
       {
-        path: 'global',
-        children:[
-          {
-            path: ':id',
-            component: ListArticleComponent
-          }
-        ]
-      },
+        path: ':tag',
+        component: ListArticleComponent,
+      }
     ]
   }
 

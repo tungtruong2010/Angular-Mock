@@ -63,7 +63,8 @@ img {
 
 .postcomt {
     padding: 10px;
-    background-color: #B8DFD8;
+    /* background-color: #B8DFD8; */
+    background-image: linear-gradient(to right, #FFB319, #B8DFD8);
 }
 
 .cmt_area {

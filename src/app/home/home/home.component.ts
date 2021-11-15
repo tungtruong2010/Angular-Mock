@@ -14,6 +14,8 @@ import { EditorArticleService } from 'src/app/service/implement-services/editor-
 export class HomeComponent implements OnInit {
   public active = 2;
   public showYourFeed:boolean = false;
+  public tagName:any = '';
+
   constructor(private config: NgbNavConfig,
     private  authService: AuthService,
     private router: Router,
@@ -25,12 +27,27 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     if(this.router.url.split('/')[1]=='yourfeed'){
       this.active = 1;
-    }else{
+    }
+    if(this.router.url.split('/')[1]=='global'){
       this.active = 2;
     }
-    this.showYourFeed =  this.authService.isLoggedIn();
+    if(this.router.url.split('/')[1]!='yourfeed'&&this.router.url.split('/')[1]!='global'){
+      this.active = 3;
+    }
 
+    this.showYourFeed =  this.authService.isLoggedIn();
+    this.authService.sendTagName.subscribe((tagName:any)=>{
+      console.log(tagName);
+      if(tagName =='global'||tagName=='yourfeed'){
+
+        this.tagName = '';
+      }else{
+        this.tagName = '#'+tagName;
+
+      }
+    })
   }
+
   setNavName(){
 
   }
