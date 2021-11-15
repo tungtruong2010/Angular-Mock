@@ -93,7 +93,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
     });
     //console.log(tagLists)
     
-    if(this.publish.get('title')?.value!=null&&this.publish.get('maincontent')?.value !=null){
+    if(this.publish.get('title')?.value!=null&&this.publish.get('maincontent')?.value !=null&&this.publish.get('title')?.value!=''&&this.publish.get('maincontent')?.value !=''){
       this.service.createArticle(this.publish.get('title')?.value,this.publish.get('maincontent')?.value,this.publish.get('content')?.value,tagLists).subscribe((data:any)=>{
         //console.log("publish", data);
         setTimeout(() => {
@@ -114,6 +114,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
       );
       this.showFault=true;
     }else{
+      this.spinner.hide();
       this.showFault=true;
     }
     

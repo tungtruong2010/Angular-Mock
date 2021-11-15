@@ -11,7 +11,6 @@ export class EditorArticleService {
   public token = localStorage.getItem('token');
 
   constructor(public http: HttpClient) {
-    // this.deleteUpdated = new EventEmitter();
   }
 
   createArticle(title:string,maincontent:string,markdown:string, tagList:any){
