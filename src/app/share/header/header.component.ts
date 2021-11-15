@@ -1,5 +1,6 @@
 import {  Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/implement-services/auth.service';
+import { UserService } from 'src/app/service/user-services/user.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,17 +8,17 @@ import { AuthService } from 'src/app/service/implement-services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   public isLoggin:boolean = false;
-  public src:string = 'https://static.productionready.io/images/smiley-cyrus.jpg';
+  public src:any = '';
   public account_name:any = '';
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private userService:UserService) {
+    this.src = localStorage.getItem('avatarImg')
+  }
 
   ngOnInit(): void {
     let token = localStorage.getItem("token");
     let currentUserName = localStorage.getItem("currentUser");
     if(token!=null || currentUserName!=null){
       this.isLoggin = true;
-      console.log(currentUserName);
-
       this.account_name = currentUserName;
     }
     this.authService.settingStatus.subscribe((status:any)=>{
@@ -30,7 +31,6 @@ export class HeaderComponent implements OnInit {
 
       this.isLoggin = this.authService.isLoggedIn();
       this.account_name = data.username;
-      this.src = data.image;
     });
     this.authService.regisStatus.subscribe((data:any)=>{
 
@@ -38,5 +38,12 @@ export class HeaderComponent implements OnInit {
       this.account_name = data.username;
       this.src = data.image;
     });
+
+    this.authService.updateAvatarAdmin.subscribe(
+      avatarImg => {
+        this.src = avatarImg;
+        localStorage.setItem('avatarImg', avatarImg);
+      }
+    )
   }
 }

@@ -33,6 +33,6 @@ const routes:Routes = [
     RouterModule.forChild(routes),
     ShareModule,
     CommonModule
-  ]
+  ],
 })
 export class ProfileModule { }

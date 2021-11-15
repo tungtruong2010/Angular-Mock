@@ -34,7 +34,7 @@ ul li .tag {
 }
 
 .author-info {
-    background-image: linear-gradient(to right, #56ab2f, #a8e063);
+    background-image: linear-gradient(to right, #FFB319, #FFE194);
     border-radius: 5px 5px 0 0;
 }
 
@@ -48,11 +48,15 @@ ul li .tag {
 
 .article-detail {
     color: white;
-    background-color: #055699;
+    background-color: #678983;
 }
 
 .likedArt {
-    color: #56ab2f;
-    background-color: transparent!important;
-    border-color: #56ab2f;
+  color: #FFB319!important;
+  background-color: transparent!important;
+  border-color: #FFB319;
+}
+.btn-like {
+  background-color: #FFB319;
+  color: white;
 }

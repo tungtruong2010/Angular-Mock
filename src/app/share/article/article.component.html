@@ -19,12 +19,12 @@
                     <span class="tag">#{{tag}}</span>
                 </li>
             </ul>
-            <button class="article-detail btn btn-primary">Read more ...</button>
+            <button class="article-detail btn ">Read more ...</button>
         </div>
     </div>
     <div class="article-like px-3 pt-0 pb-3 ">
         <hr>
-        <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Like" [ngClass]="{'likedArt': !statusFavorited}" style="height: 35px;" (click)="toggleLikeArticle(article.favoritesCount)">
+        <button type="button" class="btn btn-like" data-toggle="tooltip" data-placement="top" title="Like" [ngClass]="{'likedArt': !statusFavorited}" style="height: 35px;" (click)="toggleLikeArticle(article.favoritesCount)">
         <i class="far fa-thumbs-up mr-1"></i>
         <span>{{favoritesCount}}</span>
       </button>

@@ -11,15 +11,18 @@ export class AuthService {
   public loginStatus: EventEmitter<any>;
   public regisStatus: EventEmitter<any>;
   public settingStatus: EventEmitter<any>;
+  public updateAvatarAdmin:EventEmitter<any>
   public sendTagName: EventEmitter<any>;
 
   constructor(private http: HttpClient) {
     this.loginStatus = new EventEmitter();
     this.regisStatus = new EventEmitter();
     this.settingStatus = new EventEmitter();
+    this.updateAvatarAdmin = new EventEmitter()
     this.sendTagName = new EventEmitter();
     let token = localStorage.getItem("token");
     let currentUserName = localStorage.getItem("currentUser");
+    let avatarImg = localStorage.getItem("avatarImg")
     if(token){
       this.loggedIn = true;
       this.token = token;
@@ -44,6 +47,7 @@ export class AuthService {
     this.token = user.token;
     localStorage.setItem("token", user.token);
     localStorage.setItem("currentUser", user.username);
+    localStorage.setItem("avatarImg", user.image)
   }
   isLoggedIn(){
     return this.loggedIn;

@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FooterComponent } from './share/footer/footer.component';
 import { HeaderComponent } from './share/header/header.component';
 import { ShareModule } from './share/share.module';
+import { ArticleService } from './service/article-services/article.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import { ShareModule } from './share/share.module';
       useClass: AuthInterceptor,
       multi: true
     },
-    NgbModal,
+    NgbModal
 
   ],
   bootstrap: [AppComponent]

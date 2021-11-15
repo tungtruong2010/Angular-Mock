@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/implement-services/auth.service';
 import { EditorArticleService } from 'src/app/service/implement-services/editor-article.service';
-import { ToastService } from 'src/app/service/implement-services/toast.service';
+// import { ToastService } from 'src/app/service/implement-services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   public showPass = true;
   public loginForm: FormGroup;
   constructor(private route: Router ,
-    public toastService: ToastService, private  authService: AuthService) {
+    public toastService: ToastrService, private  authService: AuthService) {
     this.loginForm= new FormGroup({});
     this.loginForm.addControl('email', new FormControl(
       null,[Validators.required, Validators.email]
@@ -62,7 +63,8 @@ export class LoginComponent implements OnInit {
       },
       (err) =>{
         this.showSpinner = false;
-        alert('Email or password incorrect');
+        // alert('Email or password incorrect');
+        this.toastService.error('Email or password is invalid')
 
 
       }

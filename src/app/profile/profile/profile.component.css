@@ -1,6 +1,6 @@
 .header {
   padding: 2rem 0;
-  background-color: #F1F6F5;
+  background-color: #E8F6EF;
 }
 .profile {
   margin-bottom: 6rem;
@@ -14,7 +14,7 @@
   font-size: 18px;
 }
 .nav-link.active {
-  color: green!important;
-  border-bottom: 2px solid green!important;
+  color: #FFB319!important;
+  border-bottom: 2px solid #FFB319!important;
 }
 
