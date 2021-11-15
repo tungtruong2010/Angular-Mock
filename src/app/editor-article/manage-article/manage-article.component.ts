@@ -2,6 +2,7 @@ import { Component, OnChanges, OnDestroy, OnInit, Type } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/implement-services/auth.service';
 import { EditorArticleService } from 'src/app/service/implement-services/editor-article.service';
 
@@ -21,7 +22,14 @@ export class ManageArticleComponent implements OnInit, OnChanges {
   public followingName!:Boolean;
   public favorite!:Boolean;
 
-  constructor(private _modalService: NgbModal,private service: EditorArticleService,private router: Router, private route: ActivatedRoute, private authsrv: AuthService) { }
+  constructor(
+    private _modalService: NgbModal,
+    private service: EditorArticleService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private authsrv: AuthService,
+    private toastsrv: ToastrService
+  ) { }
 
   ngOnInit(): void {
     const showdown  = require('showdown'),
@@ -56,22 +64,37 @@ export class ManageArticleComponent implements OnInit, OnChanges {
 
   }
   postCmt(slug:string){
-    this.service.postCmt(this.cmt,slug).subscribe((data)=>{
-      //console.log(data,"success");
-      let slug= this.route.snapshot.paramMap.get('slug');
-      this.service.getCmt(slug).subscribe((data:any)=>{
-        this.listCmt=data.comments;
-        this.cmt='';
-      })
-  });
+    if(this.authsrv.loggedIn){
+      this.service.postCmt(this.cmt,slug).subscribe((data)=>{
+        //console.log(data,"success");
+        let slug= this.route.snapshot.paramMap.get('slug');
+        this.service.getCmt(slug).subscribe((data:any)=>{
+          this.listCmt=data.comments;
+          this.cmt='';
+        })
+    });
+    }
+    else {
+      this.toastsrv.error('You must login first !')
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      },1800)
+    }
   }
   deleteList(slug:any,e:any){
-    this.service.deleteCmt(slug,e).subscribe((data:any)=>{
-      this.service.getCmt(slug).subscribe((data:any)=>{
-        this.listCmt=data.comments;
-        this.cmt='';
+    if(this.authsrv.loggedIn){
+      this.service.deleteCmt(slug,e).subscribe((data:any)=>{
+        this.service.getCmt(slug).subscribe((data:any)=>{
+          this.listCmt=data.comments;
+          this.cmt='';
+        })
       })
-    })
+    }else {
+      this.toastsrv.error('You must login first !')
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      },1800)
+    }
   }
   editAr(slugvalue:string){
     console.log("success", slugvalue)
@@ -98,7 +121,10 @@ export class ManageArticleComponent implements OnInit, OnChanges {
       this.followingName=true
       this.service.follow(name).subscribe(data=>console.log(data))
     }else{
-      this.router.navigate(['/login']);
+      this.toastsrv.error('You must login first !')
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      },1800)
     }
 
   }
@@ -107,7 +133,10 @@ export class ManageArticleComponent implements OnInit, OnChanges {
       this.followingName=false
     this.service.unfollow(username).subscribe(data=>console.log(data))
     }else{
-      this.router.navigate(['/login']);
+      this.toastsrv.error('You must login first !')
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      },1800)
     }
 
   }
@@ -116,7 +145,10 @@ export class ManageArticleComponent implements OnInit, OnChanges {
       this.favorite=true
       this.service.fav(slug).subscribe(data=>console.log(data))
     }else{
-      this.router.navigate(['/login']);
+      this.toastsrv.error('You must login first !')
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      },1800)
     }
 
   }
@@ -125,7 +157,10 @@ export class ManageArticleComponent implements OnInit, OnChanges {
          this.favorite=false
     this.service.unfav(slug).subscribe(data=>console.log(data))
     }else{
-      this.router.navigate(['/login']);
+      this.toastsrv.error('You must login first !')
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      },1800)
     }
 
   }
