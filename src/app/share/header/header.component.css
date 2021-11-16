@@ -22,11 +22,12 @@ a {
 }
 
 .nav-link.active {
-  color:#678983!important;
+    /* color:#678983!important; */
+    color: blue !important;
 }
 
 .nav-item.active .nav-link,
 .nav-item.active i {
-  color: #678983!important;
+    /* color: #678983!important; */
+    color: blue !important;
 }
-

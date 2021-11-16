@@ -1,10 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');
 .footer {
-    background-color: #343e4a;
+    /* background-color: #FFB319; */
+    background: linear-gradient(to bottom, #FFB319, #FFE194);
     padding: 0.5rem 0;
-    color: white;
+    color: black;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 1099999999;
+}
+
+.footer h3 {
+    font-size: 25px;
+    font-family: 'Yuji Mai', serif;
+    font-weight: bold;
+}
+
+.footer p {
+    font-size: 13px;
 }
